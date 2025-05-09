@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -24,104 +23,104 @@ interface NavItem {
 const navItems: NavItem[] = [
   {
     title: "Products",
-    href: "#products",
+    href: "/products",
     children: [
       {
         title: "Voice AI",
-        href: "#voice-ai",
+        href: "/products#voice-ai",
         description: "Advanced voice recognition and assistant technology."
       },
       {
         title: "Voice Chat",
-        href: "#voice-chat",
+        href: "/products#voice-chat",
         description: "Conversational voice interfaces for your applications."
       },
       {
         title: "Voice Search",
-        href: "#voice-search",
+        href: "/products#voice-search",
         description: "Intelligent search powered by voice commands."
       },
       {
         title: "Houndify",
-        href: "#houndify",
+        href: "/products#houndify",
         description: "Voice AI platform for developers."
       },
     ]
   },
   {
     title: "Solutions",
-    href: "#solutions",
+    href: "/solutions",
     children: [
       {
         title: "Automotive",
-        href: "#automotive",
+        href: "/solutions#automotive",
         description: "Voice AI for next-generation vehicles."
       },
       {
         title: "IoT & Smart Home",
-        href: "#iot",
+        href: "/solutions#iot",
         description: "Connect and control all your smart devices."
       },
       {
         title: "Mobile Apps",
-        href: "#mobile-apps",
+        href: "/solutions#mobile-apps",
         description: "Enhance mobile experiences with voice technology."
       },
       {
         title: "Customer Service",
-        href: "#customer-service",
+        href: "/solutions#customer-service",
         description: "Automated support with natural conversations."
       },
     ]
   },
   {
     title: "Developers",
-    href: "#developers",
+    href: "/developers",
     children: [
       {
         title: "Documentation",
-        href: "#documentation",
+        href: "/developers#documentation",
         description: "Comprehensive guides and API references."
       },
       {
         title: "SDKs",
-        href: "#sdks",
+        href: "/developers#sdks",
         description: "Development kits for multiple platforms."
       },
       {
         title: "API Access",
-        href: "#api-access",
+        href: "/developers#api-access",
         description: "Integrate our technology into your applications."
       },
       {
         title: "Community",
-        href: "#community",
+        href: "/developers#community",
         description: "Join our developer community and forums."
       },
     ]
   },
   {
     title: "About",
-    href: "#about",
+    href: "/about",
     children: [
       {
         title: "Company",
-        href: "#company",
+        href: "/about#company",
         description: "Learn about our mission and vision."
       },
       {
         title: "Careers",
-        href: "#careers",
+        href: "/about#careers",
         description: "Join our team of innovators."
       },
       {
         title: "News",
-        href: "#news",
+        href: "/about#news",
         description: "Latest updates and press releases."
       },
       {
         title: "Contact",
-        href: "#contact",
+        href: "/about#contact",
         description: "Get in touch with our team."
       },
     ]
@@ -186,8 +185,12 @@ export function Header() {
         
         <div className="flex items-center space-x-2">
           <div className="hidden md:flex items-center space-x-3">
-            <Button variant="outline">Sign In</Button>
-            <Button className="gradient-primary">Get Started</Button>
+            <Link to="/signin">
+              <Button variant="outline">Sign In</Button>
+            </Link>
+            <Link to="/get-started">
+              <Button className="gradient-primary">Get Started</Button>
+            </Link>
           </div>
           <button
             className="md:hidden"
@@ -247,8 +250,12 @@ export function Header() {
                   ))}
                 </div>
                 <div className="py-6 space-y-3">
-                  <Button variant="outline" className="w-full">Sign In</Button>
-                  <Button className="gradient-primary w-full">Get Started</Button>
+                  <Link to="/signin" onClick={() => setMobileMenuOpen(false)}>
+                    <Button variant="outline" className="w-full">Sign In</Button>
+                  </Link>
+                  <Link to="/get-started" onClick={() => setMobileMenuOpen(false)}>
+                    <Button className="gradient-primary w-full">Get Started</Button>
+                  </Link>
                 </div>
               </div>
             </div>
