@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import { Facebook, Twitter, Instagram, Linkedin, Youtube } from "lucide-react";
 
@@ -16,37 +15,37 @@ const footerSections: FooterSection[] = [
   {
     title: "Products",
     links: [
-      { title: "Voice AI", href: "#voice-ai" },
-      { title: "Voice Chat", href: "#voice-chat" },
-      { title: "Voice Search", href: "#voice-search" },
-      { title: "Houndify", href: "#houndify" },
+      { title: "Voice AI", href: "/products/voice-ai" },
+      { title: "Voice Chat", href: "/products/voice-chat" },
+      { title: "Voice Search", href: "/products/voice-search" },
+      { title: "Houndify", href: "/products/houndify" },
       { title: "Pricing", href: "#pricing" },
     ]
   },
   {
     title: "Solutions",
     links: [
-      { title: "Automotive", href: "#automotive" },
-      { title: "IoT & Smart Home", href: "#iot" },
-      { title: "Mobile Apps", href: "#mobile-apps" },
-      { title: "Customer Service", href: "#customer-service" },
+      { title: "Automotive", href: "/solutions/automotive" },
+      { title: "IoT & Smart Home", href: "/solutions/iot-smart-home" },
+      { title: "Mobile Apps", href: "/solutions#mobile-apps" },
+      { title: "Customer Service", href: "/solutions#customer-service" },
       { title: "Enterprise", href: "#enterprise" },
     ]
   },
   {
     title: "Developers",
     links: [
-      { title: "Documentation", href: "#documentation" },
-      { title: "SDKs", href: "#sdks" },
-      { title: "API Access", href: "#api-access" },
-      { title: "Community", href: "#community" },
+      { title: "Documentation", href: "/developers/documentation" },
+      { title: "SDKs", href: "/developers#sdks" },
+      { title: "API Access", href: "/developers#api-access" },
+      { title: "Community", href: "/developers#community" },
       { title: "Support", href: "#support" },
     ]
   },
   {
     title: "Company",
     links: [
-      { title: "About Us", href: "#about" },
+      { title: "About Us", href: "/company/about-us" },
       { title: "Careers", href: "#careers" },
       { title: "News", href: "#news" },
       { title: "Contact", href: "#contact" },
@@ -94,12 +93,12 @@ const Footer = () => {
               <ul className="space-y-3">
                 {section.links.map((link) => (
                   <li key={link.title}>
-                    <a 
-                      href={link.href} 
+                    <Link 
+                      to={link.href} 
                       className="text-gray-600 hover:text-soundblue-500 transition-colors"
                     >
                       {link.title}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>

@@ -27,22 +27,22 @@ const navItems: NavItem[] = [
     children: [
       {
         title: "Voice AI",
-        href: "/products#voice-ai",
+        href: "/products/voice-ai",
         description: "Advanced voice recognition and assistant technology."
       },
       {
         title: "Voice Chat",
-        href: "/products#voice-chat",
+        href: "/products/voice-chat",
         description: "Conversational voice interfaces for your applications."
       },
       {
         title: "Voice Search",
-        href: "/products#voice-search",
+        href: "/products/voice-search",
         description: "Intelligent search powered by voice commands."
       },
       {
         title: "Houndify",
-        href: "/products#houndify",
+        href: "/products/houndify",
         description: "Voice AI platform for developers."
       },
     ]
@@ -53,12 +53,12 @@ const navItems: NavItem[] = [
     children: [
       {
         title: "Automotive",
-        href: "/solutions#automotive",
+        href: "/solutions/automotive",
         description: "Voice AI for next-generation vehicles."
       },
       {
         title: "IoT & Smart Home",
-        href: "/solutions#iot",
+        href: "/solutions/iot-smart-home",
         description: "Connect and control all your smart devices."
       },
       {
@@ -79,7 +79,7 @@ const navItems: NavItem[] = [
     children: [
       {
         title: "Documentation",
-        href: "/developers#documentation",
+        href: "/developers/documentation",
         description: "Comprehensive guides and API references."
       },
       {
@@ -105,7 +105,7 @@ const navItems: NavItem[] = [
     children: [
       {
         title: "Company",
-        href: "/about#company",
+        href: "/company/about-us",
         description: "Learn about our mission and vision."
       },
       {
@@ -153,15 +153,15 @@ export function Header() {
                             {item.children.map((child) => (
                               <li key={child.title}>
                                 <NavigationMenuLink asChild>
-                                  <a
-                                    href={child.href}
+                                  <Link
+                                    to={child.href}
                                     className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                                   >
                                     <div className="text-sm font-medium leading-none">{child.title}</div>
                                     <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                                       {child.description}
                                     </p>
-                                  </a>
+                                  </Link>
                                 </NavigationMenuLink>
                               </li>
                             ))}
@@ -169,12 +169,12 @@ export function Header() {
                         </NavigationMenuContent>
                       </>
                     ) : (
-                      <NavigationMenuLink
+                      <Link
+                        to={item.href}
                         className={navigationMenuTriggerStyle()}
-                        href={item.href}
                       >
                         {item.title}
-                      </NavigationMenuLink>
+                      </Link>
                     )}
                   </NavigationMenuItem>
                 ))}
@@ -225,24 +225,24 @@ export function Header() {
                 <div className="space-y-2 py-6">
                   {navItems.map((item) => (
                     <div key={item.title}>
-                      <a
-                        href={item.href}
+                      <Link
+                        to={item.href}
                         className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 hover:bg-gray-50"
                         onClick={() => setMobileMenuOpen(false)}
                       >
                         {item.title}
-                      </a>
+                      </Link>
                       {item.children && (
                         <div className="ml-6 space-y-1">
                           {item.children.map((child) => (
-                            <a
+                            <Link
                               key={child.title}
-                              href={child.href}
+                              to={child.href}
                               className="block rounded-lg py-2 pl-3 pr-3 text-sm leading-7 text-gray-600 hover:bg-gray-50"
                               onClick={() => setMobileMenuOpen(false)}
                             >
                               {child.title}
-                            </a>
+                            </Link>
                           ))}
                         </div>
                       )}
