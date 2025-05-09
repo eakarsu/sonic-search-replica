@@ -1,3 +1,4 @@
+
 import { Link } from 'react-router-dom';
 import { Facebook, Twitter, Instagram, Linkedin, Youtube } from "lucide-react";
 
@@ -46,10 +47,10 @@ const footerSections: FooterSection[] = [
     title: "Company",
     links: [
       { title: "About Us", href: "/company/about-us" },
-      { title: "Careers", href: "#careers" },
-      { title: "News", href: "#news" },
-      { title: "Contact", href: "#contact" },
-      { title: "Partners", href: "#partners" },
+      { title: "Careers", href: "/company/careers" },
+      { title: "News", href: "/company/news" },
+      { title: "Contact", href: "/company/contact" },
+      { title: "Partners", href: "/company/partners" },
     ]
   },
 ];
