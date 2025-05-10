@@ -3,6 +3,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const VoiceAI = () => {
   return (
@@ -66,8 +67,12 @@ const VoiceAI = () => {
             </div>
 
             <div className="flex justify-center">
-              <Button className="gradient-primary mr-4">Request a Demo</Button>
-              <Button variant="outline">Documentation</Button>
+              <Button className="gradient-primary mr-4" asChild>
+                <Link to="/company/contact">Request a Demo</Link>
+              </Button>
+              <Button variant="outline" asChild>
+                <Link to="/developers/documentation">Documentation</Link>
+              </Button>
             </div>
           </div>
         </main>

@@ -24,7 +24,19 @@ import Automotive from "./pages/solutions/Automotive";
 import IoTSmartHome from "./pages/solutions/IoTSmartHome";
 
 // Developer pages
-import Documentation from "./pages/developers/Documentation";
+import Documentation from "./pages/developers/documentation";
+import PlatformOverview from "./pages/developers/documentation/PlatformOverview";
+import QuickStart from "./pages/developers/documentation/QuickStart";
+import AccountSetup from "./pages/developers/documentation/AccountSetup";
+import CoreConcepts from "./pages/developers/documentation/CoreConcepts";
+import RestApiReference from "./pages/developers/documentation/RestApiReference";
+import IosSdk from "./pages/developers/documentation/IosSdk";
+import AndroidSdk from "./pages/developers/documentation/AndroidSdk";
+import WebSdk from "./pages/developers/documentation/WebSdk";
+import VoiceAssistantImplementation from "./pages/developers/documentation/VoiceAssistantImplementation";
+import CustomDomainCreation from "./pages/developers/documentation/CustomDomainCreation";
+import PerformanceOptimization from "./pages/developers/documentation/PerformanceOptimization";
+import SecurityBestPractices from "./pages/developers/documentation/SecurityBestPractices";
 
 // Company pages
 import AboutUs from "./pages/company/AboutUs";
@@ -62,6 +74,18 @@ const App = () => (
           
           {/* Developer pages */}
           <Route path="/developers/documentation" element={<Documentation />} />
+          <Route path="/developers/documentation/platform-overview" element={<PlatformOverview />} />
+          <Route path="/developers/documentation/quick-start" element={<QuickStart />} />
+          <Route path="/developers/documentation/account-setup" element={<AccountSetup />} />
+          <Route path="/developers/documentation/core-concepts" element={<CoreConcepts />} />
+          <Route path="/developers/documentation/rest-api-reference" element={<RestApiReference />} />
+          <Route path="/developers/documentation/ios-sdk" element={<IosSdk />} />
+          <Route path="/developers/documentation/android-sdk" element={<AndroidSdk />} />
+          <Route path="/developers/documentation/web-sdk" element={<WebSdk />} />
+          <Route path="/developers/documentation/voice-assistant-implementation" element={<VoiceAssistantImplementation />} />
+          <Route path="/developers/documentation/custom-domain-creation" element={<CustomDomainCreation />} />
+          <Route path="/developers/documentation/performance-optimization" element={<PerformanceOptimization />} />
+          <Route path="/developers/documentation/security-best-practices" element={<SecurityBestPractices />} />
           
           {/* Company pages */}
           <Route path="/company/about-us" element={<AboutUs />} />
