@@ -1,5 +1,6 @@
 
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -14,11 +15,20 @@ const Hero = () => {
             Transform how users interact with your products through cutting-edge voice recognition, natural language understanding, and conversational AI.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Button size="lg" className="bg-white text-soundblue-500 hover:bg-gray-100">
-              Try Demo
+            <Button 
+              size="lg" 
+              className="bg-white text-soundblue-500 hover:bg-gray-100"
+              asChild
+            >
+              <Link to="/products/voice-ai">Try Demo</Link>
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
-              Documentation
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="border-white text-soundteal-400 hover:bg-white/10 font-medium"
+              asChild
+            >
+              <Link to="/developers/documentation">Documentation</Link>
             </Button>
           </div>
         </div>
