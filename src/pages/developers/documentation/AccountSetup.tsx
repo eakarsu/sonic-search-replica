@@ -55,10 +55,10 @@ const AccountSetup = () => {
               <h4>Web Development</h4>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  npm install serviqai-voice-sdk
+                  {`npm install serviqai-voice-sdk
                   
-                  // or with yarn
-                  yarn add serviqai-voice-sdk
+// or with yarn
+yarn add serviqai-voice-sdk`}
                 </code>
               </pre>
 
@@ -66,10 +66,10 @@ const AccountSetup = () => {
               <p>Add the following to your Podfile:</p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  pod 'ServiqAIVoiceSDK'
+                  {`pod 'ServiqAIVoiceSDK'
                   
-                  // Then run
-                  pod install
+// Then run
+pod install`}
                 </code>
               </pre>
 
@@ -77,7 +77,7 @@ const AccountSetup = () => {
               <p>Add the following to your build.gradle:</p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  implementation 'com.serviqai:voice-sdk:1.0.0'
+                  {`implementation 'com.serviqai:voice-sdk:1.0.0'`}
                 </code>
               </pre>
 
@@ -87,8 +87,8 @@ const AccountSetup = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  // .env file (do not commit to version control)
-                  SERVIQAI_API_KEY=your_api_key_here
+                  {`// .env file (do not commit to version control)
+SERVIQAI_API_KEY=your_api_key_here`}
                 </code>
               </pre>
 
@@ -98,19 +98,19 @@ const AccountSetup = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  import ServiqAI from 'serviqai-voice-sdk';
+                  {`import ServiqAI from 'serviqai-voice-sdk';
                   
-                  ServiqAI.initialize({
-                    apiKey: process.env.SERVIQAI_API_KEY
-                  });
+ServiqAI.initialize({
+  apiKey: process.env.SERVIQAI_API_KEY
+});
                   
-                  ServiqAI.testConnection()
-                    .then(response => {
-                      console.log('Connection successful!', response);
-                    })
-                    .catch(error => {
-                      console.error('Connection failed:', error);
-                    });
+ServiqAI.testConnection()
+  .then(response => {
+    console.log('Connection successful!', response);
+  })
+  .catch(error => {
+    console.error('Connection failed:', error);
+  });`}
                 </code>
               </pre>
             </div>

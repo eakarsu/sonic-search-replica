@@ -49,19 +49,19 @@ const SecurityBestPractices = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  // NEVER do this (in client-side code):
-                  const apiKey = "sk_live_abcdefg123456";
+                  {`// NEVER do this (in client-side code):
+const apiKey = "sk_live_abcdefg123456";
                   
-                  // Instead, use environment variables on your server
-                  const apiKey = process.env.SERVIQAI_API_KEY;
+// Instead, use environment variables on your server
+const apiKey = process.env.SERVIQAI_API_KEY;
                   
-                  // For mobile apps, use secure storage
-                  // iOS (Swift)
-                  KeychainWrapper.standard.set(apiKey, forKey: "ServiqAIApiKey")
+// For mobile apps, use secure storage
+// iOS (Swift)
+KeychainWrapper.standard.set(apiKey, forKey: "ServiqAIApiKey")
                   
-                  // Android (Kotlin)
-                  val encryptedSharedPreferences = EncryptedSharedPreferences.create(...)
-                  encryptedSharedPreferences.edit().putString("serviqai_api_key", apiKey).apply()
+// Android (Kotlin)
+val encryptedSharedPreferences = EncryptedSharedPreferences.create(...)
+encryptedSharedPreferences.edit().putString("serviqai_api_key", apiKey).apply()`}
                 </code>
               </pre>
 
@@ -71,34 +71,34 @@ const SecurityBestPractices = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  // Client-side code
-                  async function recognizeSpeech(audioData) {
-                      // Send to your server, not directly to ServiqAI
-                      const response = await fetch('/api/speech-to-text', {
-                          method: 'POST',
-                          body: audioData
-                      });
-                      return response.json();
-                  }
+                  {`// Client-side code
+async function recognizeSpeech(audioData) {
+    // Send to your server, not directly to ServiqAI
+    const response = await fetch('/api/speech-to-text', {
+        method: 'POST',
+        body: audioData
+    });
+    return response.json();
+}
                   
-                  // Server-side code (Node.js example)
-                  app.post('/api/speech-to-text', async (req, res) => {
-                      try {
-                          // Forward to ServiqAI with your API key
-                          const serviqResponse = await fetch('https://api.serviqai.com/v1/recognize', {
-                              method: 'POST',
-                              headers: {
-                                  'Authorization': `Bearer ${process.env.SERVIQAI_API_KEY}`
-                              },
-                              body: req.body
-                          });
-                          
-                          const data = await serviqResponse.json();
-                          res.json(data);
-                      } catch (error) {
-                          res.status(500).json({ error: 'Recognition failed' });
-                      }
-                  });
+// Server-side code (Node.js example)
+app.post('/api/speech-to-text', async (req, res) => {
+    try {
+        // Forward to ServiqAI with your API key
+        const serviqResponse = await fetch('https://api.serviqai.com/v1/recognize', {
+            method: 'POST',
+            headers: {
+                'Authorization': \`Bearer \${process.env.SERVIQAI_API_KEY}\`
+            },
+            body: req.body
+        });
+        
+        const data = await serviqResponse.json();
+        res.json(data);
+    } catch (error) {
+        res.status(500).json({ error: 'Recognition failed' });
+    }
+});`}
                 </code>
               </pre>
 
@@ -110,30 +110,30 @@ const SecurityBestPractices = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  // Implement multi-factor authentication
-                  async function authenticateUser(userId, voiceSample) {
-                      // 1. Verify voice biometrics
-                      const voiceMatch = await ServiqAI.verifyVoiceBiometrics({
-                          userId: userId,
-                          voiceSample: voiceSample,
-                          strictnessLevel: 'high', // 'low', 'medium', 'high'
-                          antiSpoofing: true // Enable anti-spoofing protection
-                      });
-                      
-                      if (!voiceMatch.isMatch) {
-                          return { authenticated: false, reason: 'voice_mismatch' };
-                      }
-                      
-                      // 2. Request secondary verification (e.g., OTP)
-                      const otpVerified = await verifyOTP(userId);
-                      
-                      // 3. Return authentication result
-                      return {
-                          authenticated: voiceMatch.isMatch && otpVerified,
-                          confidence: voiceMatch.confidence,
-                          antiSpoofScore: voiceMatch.antiSpoofScore
-                      };
-                  }
+                  {`// Implement multi-factor authentication
+async function authenticateUser(userId, voiceSample) {
+    // 1. Verify voice biometrics
+    const voiceMatch = await ServiqAI.verifyVoiceBiometrics({
+        userId: userId,
+        voiceSample: voiceSample,
+        strictnessLevel: 'high', // 'low', 'medium', 'high'
+        antiSpoofing: true // Enable anti-spoofing protection
+    });
+    
+    if (!voiceMatch.isMatch) {
+        return { authenticated: false, reason: 'voice_mismatch' };
+    }
+    
+    // 2. Request secondary verification (e.g., OTP)
+    const otpVerified = await verifyOTP(userId);
+    
+    // 3. Return authentication result
+    return {
+        authenticated: voiceMatch.isMatch && otpVerified,
+        confidence: voiceMatch.confidence,
+        antiSpoofScore: voiceMatch.antiSpoofScore
+    };
+}`}
                 </code>
               </pre>
 
@@ -143,26 +143,26 @@ const SecurityBestPractices = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  // Challenge-response for liveness verification
-                  async function verifyLiveness(userId) {
-                      // 1. Generate a random phrase for the user to speak
-                      const challenge = generateRandomPhrase();
-                      
-                      // 2. Ask user to speak the phrase
-                      displayChallenge(challenge);
-                      
-                      // 3. Record and verify the response
-                      const voiceSample = await recordVoice();
-                      
-                      const livenessResult = await ServiqAI.verifyLiveness({
-                          expectedPhrase: challenge,
-                          voiceSample: voiceSample,
-                          userId: userId,
-                          timeConstraint: 5000 // Must respond within 5 seconds
-                      });
-                      
-                      return livenessResult;
-                  }
+                  {`// Challenge-response for liveness verification
+async function verifyLiveness(userId) {
+    // 1. Generate a random phrase for the user to speak
+    const challenge = generateRandomPhrase();
+    
+    // 2. Ask user to speak the phrase
+    displayChallenge(challenge);
+    
+    // 3. Record and verify the response
+    const voiceSample = await recordVoice();
+    
+    const livenessResult = await ServiqAI.verifyLiveness({
+        expectedPhrase: challenge,
+        voiceSample: voiceSample,
+        userId: userId,
+        timeConstraint: 5000 // Must respond within 5 seconds
+    });
+    
+    return livenessResult;
+}`}
                 </code>
               </pre>
 
@@ -174,15 +174,15 @@ const SecurityBestPractices = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  // Configure minimal data collection
-                  ServiqAI.configure({
-                      dataCollection: {
-                          storeAudioRecordings: false,
-                          storeTranscripts: true,
-                          retentionPeriod: 30, // days
-                          privacyMode: 'high' // 'standard', 'high', 'maximum'
-                      }
-                  });
+                  {`// Configure minimal data collection
+ServiqAI.configure({
+    dataCollection: {
+        storeAudioRecordings: false,
+        storeTranscripts: true,
+        retentionPeriod: 30, // days
+        privacyMode: 'high' // 'standard', 'high', 'maximum'
+    }
+});`}
                 </code>
               </pre>
 
@@ -192,14 +192,14 @@ const SecurityBestPractices = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  // Ensure secure transmission
-                  ServiqAI.configure({
-                      security: {
-                          requireTLS: true, // Enforce TLS 1.2+
-                          validateCertificates: true,
-                          pinCertificates: true // For mobile apps
-                      }
-                  });
+                  {`// Ensure secure transmission
+ServiqAI.configure({
+    security: {
+        requireTLS: true, // Enforce TLS 1.2+
+        validateCertificates: true,
+        pinCertificates: true // For mobile apps
+    }
+});`}
                 </code>
               </pre>
 
@@ -209,19 +209,19 @@ const SecurityBestPractices = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  // Enable automatic PII detection and redaction
-                  ServiqAI.enablePrivacyProtection({
-                      redactTypes: [
-                          'credit_card',
-                          'phone_number',
-                          'email',
-                          'name',
-                          'address',
-                          'social_security_number'
-                      ],
-                      redactionMode: 'mask', // 'remove', 'mask', or 'replace'
-                      replacementToken: '[REDACTED]' // Used when mode is 'replace'
-                  });
+                  {`// Enable automatic PII detection and redaction
+ServiqAI.enablePrivacyProtection({
+    redactTypes: [
+        'credit_card',
+        'phone_number',
+        'email',
+        'name',
+        'address',
+        'social_security_number'
+    ],
+    redactionMode: 'mask', // 'remove', 'mask', or 'replace'
+    replacementToken: '[REDACTED]' // Used when mode is 'replace'
+});`}
                 </code>
               </pre>
 
@@ -233,46 +233,46 @@ const SecurityBestPractices = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  // Example consent workflow
-                  function requestVoicePermission() {
-                      return new Promise((resolve, reject) => {
-                          // Display consent dialog with clear information
-                          showConsentDialog({
-                              title: 'Voice Processing Permission',
-                              description: 'This app would like to access your microphone to process voice commands. Your voice data will be used to provide voice recognition services.',
-                              dataUsage: [
-                                  'Process voice commands',
-                                  'Improve voice recognition quality'
-                              ],
-                              dataSharingPolicy: 'Your voice data is processed securely and not shared with third parties.',
-                              privacyPolicyUrl: 'https://example.com/privacy',
-                              onAccept: () => {
-                                  // Store consent
-                                  storeUserConsent('voice_processing', true);
-                                  resolve(true);
-                              },
-                              onDeny: () => {
-                                  resolve(false);
-                              }
-                          });
-                      });
-                  }
+                  {`// Example consent workflow
+function requestVoicePermission() {
+    return new Promise((resolve, reject) => {
+        // Display consent dialog with clear information
+        showConsentDialog({
+            title: 'Voice Processing Permission',
+            description: 'This app would like to access your microphone to process voice commands. Your voice data will be used to provide voice recognition services.',
+            dataUsage: [
+                'Process voice commands',
+                'Improve voice recognition quality'
+            ],
+            dataSharingPolicy: 'Your voice data is processed securely and not shared with third parties.',
+            privacyPolicyUrl: 'https://example.com/privacy',
+            onAccept: () => {
+                // Store consent
+                storeUserConsent('voice_processing', true);
+                resolve(true);
+            },
+            onDeny: () => {
+                resolve(false);
+            }
+        });
+    });
+}
                   
-                  // Check for consent before activating voice features
-                  async function activateVoiceFeatures() {
-                      const hasConsent = getUserConsent('voice_processing');
-                      
-                      if (!hasConsent) {
-                          const userConsented = await requestVoicePermission();
-                          if (!userConsented) {
-                              showFallbackInterface();
-                              return;
-                          }
-                      }
-                      
-                      // Initialize voice features
-                      initializeVoiceRecognition();
-                  }
+// Check for consent before activating voice features
+async function activateVoiceFeatures() {
+    const hasConsent = getUserConsent('voice_processing');
+    
+    if (!hasConsent) {
+        const userConsented = await requestVoicePermission();
+        if (!userConsented) {
+            showFallbackInterface();
+            return;
+        }
+    }
+    
+    // Initialize voice features
+    initializeVoiceRecognition();
+}`}
                 </code>
               </pre>
 
@@ -282,23 +282,23 @@ const SecurityBestPractices = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  // Allow users to revoke consent
-                  function revokeVoiceConsent() {
-                      // Stop all voice processing
-                      stopVoiceProcessing();
-                      
-                      // Update stored consent
-                      storeUserConsent('voice_processing', false);
-                      
-                      // Delete stored voice data
-                      ServiqAI.deleteUserData(userId)
-                          .then(() => {
-                              showConfirmation('Voice data deleted successfully');
-                          })
-                          .catch(error => {
-                              showError('Failed to delete data: ' + error.message);
-                          });
-                  }
+                  {`// Allow users to revoke consent
+function revokeVoiceConsent() {
+    // Stop all voice processing
+    stopVoiceProcessing();
+    
+    // Update stored consent
+    storeUserConsent('voice_processing', false);
+    
+    // Delete stored voice data
+    ServiqAI.deleteUserData(userId)
+        .then(() => {
+            showConfirmation('Voice data deleted successfully');
+        })
+        .catch(error => {
+            showError('Failed to delete data: ' + error.message);
+        });
+}`}
                 </code>
               </pre>
 
@@ -310,18 +310,18 @@ const SecurityBestPractices = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  // For mobile apps, implement certificate pinning
-                  // iOS (Swift)
-                  let session = URLSession(configuration: .default, delegate: PinningURLSessionDelegate(), delegateQueue: nil)
+                  {`// For mobile apps, implement certificate pinning
+// iOS (Swift)
+let session = URLSession(configuration: .default, delegate: PinningURLSessionDelegate(), delegateQueue: nil)
                   
-                  // Android (Kotlin)
-                  val certificatePinner = CertificatePinner.Builder()
-                      .add("api.serviqai.com", "sha256/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=")
-                      .build()
+// Android (Kotlin)
+val certificatePinner = CertificatePinner.Builder()
+    .add("api.serviqai.com", "sha256/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=")
+    .build()
                   
-                  val client = OkHttpClient.Builder()
-                      .certificatePinner(certificatePinner)
-                      .build()
+val client = OkHttpClient.Builder()
+    .certificatePinner(certificatePinner)
+    .build()`}
                 </code>
               </pre>
 

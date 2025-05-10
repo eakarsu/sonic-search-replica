@@ -39,14 +39,14 @@ const QuickStart = () => {
               <p>Choose the SDK for your platform:</p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  {/* Web SDK */}
-                  npm install serviqai-voice-sdk
+                  {`# Web SDK
+npm install serviqai-voice-sdk
                   
-                  {/* iOS */}
-                  pod 'ServiqAIVoiceSDK'
+# iOS
+pod 'ServiqAIVoiceSDK'
                   
-                  {/* Android */}
-                  implementation 'com.serviqai:voice-sdk:1.0.0'
+# Android
+implementation 'com.serviqai:voice-sdk:1.0.0'`}
                 </code>
               </pre>
 
@@ -54,13 +54,13 @@ const QuickStart = () => {
               <p>Initialize the SDK with your API key:</p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  {/* JavaScript */}
-                  import ServiqAI from 'serviqai-voice-sdk';
+                  {`// JavaScript
+import ServiqAI from 'serviqai-voice-sdk';
                   
-                  ServiqAI.initialize({
-                    apiKey: 'YOUR_API_KEY',
-                    language: 'en-US'
-                  });
+ServiqAI.initialize({
+  apiKey: 'YOUR_API_KEY',
+  language: 'en-US'
+});`}
                 </code>
               </pre>
 
@@ -68,23 +68,23 @@ const QuickStart = () => {
               <p>Add a voice command to your application:</p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  {/* JavaScript */}
-                  const voiceButton = document.getElementById('voice-button');
+                  {`// JavaScript
+const voiceButton = document.getElementById('voice-button');
                   
-                  voiceButton.addEventListener('click', () => {
-                    ServiqAI.startListening({
-                      onResult: (result) => {
-                        console.log('User said:', result.text);
-                        
-                        if (result.text.includes('hello')) {
-                          ServiqAI.speak('Hello! How can I help you today?');
-                        }
-                      },
-                      onError: (error) => {
-                        console.error('Error:', error);
-                      }
-                    });
-                  });
+voiceButton.addEventListener('click', () => {
+  ServiqAI.startListening({
+    onResult: (result) => {
+      console.log('User said:', result.text);
+      
+      if (result.text.includes('hello')) {
+        ServiqAI.speak('Hello! How can I help you today?');
+      }
+    },
+    onError: (error) => {
+      console.error('Error:', error);
+    }
+  });
+});`}
                 </code>
               </pre>
 

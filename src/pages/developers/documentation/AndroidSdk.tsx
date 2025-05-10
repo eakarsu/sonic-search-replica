@@ -44,22 +44,22 @@ const AndroidSdk = () => {
               <h4>In your project-level build.gradle:</h4>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  allprojects {
-                      repositories {
-                          google()
-                          mavenCentral()
-                          maven { url "https://jitpack.io" } // Add this line
-                      }
-                  }
+                  {`allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://jitpack.io" } // Add this line
+    }
+}`}
                 </code>
               </pre>
               
               <h4>In your app-level build.gradle:</h4>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  dependencies {
-                      implementation 'com.serviqai:voice-sdk:1.0.0'
-                  }
+                  {`dependencies {
+    implementation 'com.serviqai:voice-sdk:1.0.0'
+}`}
                 </code>
               </pre>
 
@@ -71,45 +71,45 @@ const AndroidSdk = () => {
               <h4>Kotlin</h4>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  import com.serviqai.voice.ServiqAI
+                  {`import com.serviqai.voice.ServiqAI
                   
-                  class MyApplication : Application() {
-                      override fun onCreate() {
-                          super.onCreate()
-                          
-                          ServiqAI.initialize(
-                              context = this,
-                              apiKey = "YOUR_API_KEY"
-                          )
-                          
-                          // Optional configuration
-                          ServiqAI.setLanguage("en-US")
-                          ServiqAI.setDebugLogging(true)
-                      }
-                  }
+class MyApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        
+        ServiqAI.initialize(
+            context = this,
+            apiKey = "YOUR_API_KEY"
+        )
+        
+        // Optional configuration
+        ServiqAI.setLanguage("en-US")
+        ServiqAI.setDebugLogging(true)
+    }
+}`}
                 </code>
               </pre>
               
               <h4>Java</h4>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  import com.serviqai.voice.ServiqAI;
+                  {`import com.serviqai.voice.ServiqAI;
                   
-                  public class MyApplication extends Application {
-                      @Override
-                      public void onCreate() {
-                          super.onCreate();
-                          
-                          ServiqAI.initialize(
-                              this,
-                              "YOUR_API_KEY"
-                          );
-                          
-                          // Optional configuration
-                          ServiqAI.setLanguage("en-US");
-                          ServiqAI.setDebugLogging(true);
-                      }
-                  }
+public class MyApplication extends Application {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        
+        ServiqAI.initialize(
+            this,
+            "YOUR_API_KEY"
+        );
+        
+        // Optional configuration
+        ServiqAI.setLanguage("en-US");
+        ServiqAI.setDebugLogging(true);
+    }
+}`}
                 </code>
               </pre>
 
@@ -121,45 +121,45 @@ const AndroidSdk = () => {
               <h4>Kotlin</h4>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  import com.serviqai.voice.VoiceRecognizer
+                  {`import com.serviqai.voice.VoiceRecognizer
                   
-                  class MainActivity : AppCompatActivity() {
-                  
-                      private lateinit var recognizer: VoiceRecognizer
-                      
-                      override fun onCreate(savedInstanceState: Bundle?) {
-                          super.onCreate(savedInstanceState)
-                          setContentView(R.layout.activity_main)
-                          
-                          recognizer = ServiqAI.createRecognizer()
-                          
-                          findViewById&lt;Button&gt;(R.id.btnStartListening).setOnClickListener {
-                              startListening()
-                          }
-                          
-                          findViewById&lt;Button&gt;(R.id.btnStopListening).setOnClickListener {
-                              recognizer.stopListening()
-                          }
-                      }
-                      
-                      private fun startListening() {
-                          recognizer.startListening(object : VoiceRecognizer.Callback {
-                              override fun onResult(transcript: String) {
-                                  // Handle the recognized text
-                                  Log.d("VoiceDemo", "User said: $transcript")
-                              }
-                              
-                              override fun onPartialResult(partialTranscript: String) {
-                                  // Handle partial recognition results
-                              }
-                              
-                              override fun onError(error: VoiceRecognizerError) {
-                                  // Handle errors
-                                  Log.e("VoiceDemo", "Error: ${error.message}")
-                              }
-                          })
-                      }
-                  }
+class MainActivity : AppCompatActivity() {
+
+    private lateinit var recognizer: VoiceRecognizer
+    
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        
+        recognizer = ServiqAI.createRecognizer()
+        
+        findViewById<Button>(R.id.btnStartListening).setOnClickListener {
+            startListening()
+        }
+        
+        findViewById<Button>(R.id.btnStopListening).setOnClickListener {
+            recognizer.stopListening()
+        }
+    }
+    
+    private fun startListening() {
+        recognizer.startListening(object : VoiceRecognizer.Callback {
+            override fun onResult(transcript: String) {
+                // Handle the recognized text
+                Log.d("VoiceDemo", "User said: $transcript")
+            }
+            
+            override fun onPartialResult(partialTranscript: String) {
+                // Handle partial recognition results
+            }
+            
+            override fun onError(error: VoiceRecognizerError) {
+                // Handle errors
+                Log.e("VoiceDemo", "Error: ${error.message}")
+            }
+        })
+    }
+}`}
                 </code>
               </pre>
 
@@ -169,29 +169,29 @@ const AndroidSdk = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  val assistant = ServiqAI.createAssistant()
+                  {`val assistant = ServiqAI.createAssistant()
                   
-                  assistant.startConversation(object : AssistantCallback {
-                      override fun onStateChanged(state: AssistantState) {
-                          when (state) {
-                              is AssistantState.Listening -> updateUI(isListening = true)
-                              is AssistantState.Processing -> updateUI(isProcessing = true)
-                              is AssistantState.Speaking -> {
-                                  updateUI(isSpeaking = true)
-                                  textView.text = state.text
-                              }
-                              is AssistantState.Idle -> updateUI(isIdle = true)
-                          }
-                      }
-                      
-                      override fun onError(error: AssistantError) {
-                          Log.e("Assistant", "Error: ${error.message}")
-                          showErrorMessage(error.message)
-                      }
-                  })
+assistant.startConversation(object : AssistantCallback {
+    override fun onStateChanged(state: AssistantState) {
+        when (state) {
+            is AssistantState.Listening -> updateUI(isListening = true)
+            is AssistantState.Processing -> updateUI(isProcessing = true)
+            is AssistantState.Speaking -> {
+                updateUI(isSpeaking = true)
+                textView.text = state.text
+            }
+            is AssistantState.Idle -> updateUI(isIdle = true)
+        }
+    }
+    
+    override fun onError(error: AssistantError) {
+        Log.e("Assistant", "Error: ${error.message}")
+        showErrorMessage(error.message)
+    }
+})
                   
-                  // Later, to stop the conversation
-                  assistant.stopConversation()
+// Later, to stop the conversation
+assistant.stopConversation()`}
                 </code>
               </pre>
 
@@ -201,22 +201,22 @@ const AndroidSdk = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  val commandHandler = ServiqAI.createCommandHandler()
+                  {`val commandHandler = ServiqAI.createCommandHandler()
                   
-                  // Add commands
-                  commandHandler.addCommand("open settings") {
-                      openSettings()
-                  }
+// Add commands
+commandHandler.addCommand("open settings") {
+    openSettings()
+}
                   
-                  commandHandler.addCommand("show profile for {name}") { params ->
-                      val name = params["name"]
-                      if (name != null) {
-                          showProfile(name)
-                      }
-                  }
+commandHandler.addCommand("show profile for {name}") { params ->
+    val name = params["name"]
+    if (name != null) {
+        showProfile(name)
+    }
+}
                   
-                  // Start listening for commands
-                  commandHandler.startListening()
+// Start listening for commands
+commandHandler.startListening()`}
                 </code>
               </pre>
 
@@ -226,22 +226,22 @@ const AndroidSdk = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  val tts = ServiqAI.createSpeechSynthesizer()
+                  {`val tts = ServiqAI.createSpeechSynthesizer()
                   
-                  tts.speak("Hello, welcome to the app!") { error ->
-                      error?.let {
-                          Log.e("TTS", "Error: ${it.message}")
-                      }
-                  }
+tts.speak("Hello, welcome to the app!") { error ->
+    error?.let {
+        Log.e("TTS", "Error: ${it.message}")
+    }
+}
                   
-                  // With custom voice and options
-                  val options = TTSOptions(
-                      voice = "michael",
-                      speed = 1.0f,
-                      pitch = 1.0f
-                  )
+// With custom voice and options
+val options = TTSOptions(
+    voice = "michael",
+    speed = 1.0f,
+    pitch = 1.0f
+)
                   
-                  tts.speak("How can I help you today?", options)
+tts.speak("How can I help you today?", options)`}
                 </code>
               </pre>
 
@@ -252,8 +252,8 @@ const AndroidSdk = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  &lt;uses-permission android:name="android.permission.INTERNET" /&gt;
-                  &lt;uses-permission android:name="android.permission.RECORD_AUDIO" /&gt;
+                  {`<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.RECORD_AUDIO" />`}
                 </code>
               </pre>
               
@@ -262,39 +262,39 @@ const AndroidSdk = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  private fun checkPermissions() {
-                      if (ContextCompat.checkSelfPermission(
-                              this,
-                              Manifest.permission.RECORD_AUDIO
-                          ) != PackageManager.PERMISSION_GRANTED
-                      ) {
-                          ActivityCompat.requestPermissions(
-                              this,
-                              arrayOf(Manifest.permission.RECORD_AUDIO),
-                              REQUEST_RECORD_AUDIO
-                          )
-                      } else {
-                          // Permissions already granted, proceed with voice recognition
-                          startListening()
-                      }
-                  }
+                  {`private fun checkPermissions() {
+    if (ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.RECORD_AUDIO
+        ) != PackageManager.PERMISSION_GRANTED
+    ) {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(Manifest.permission.RECORD_AUDIO),
+            REQUEST_RECORD_AUDIO
+        )
+    } else {
+        // Permissions already granted, proceed with voice recognition
+        startListening()
+    }
+}
                   
-                  override fun onRequestPermissionsResult(
-                      requestCode: Int,
-                      permissions: Array<String>,
-                      grantResults: IntArray
-                  ) {
-                      super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-                      if (requestCode == REQUEST_RECORD_AUDIO && grantResults.isNotEmpty() &&
-                          grantResults[0] == PackageManager.PERMISSION_GRANTED
-                      ) {
-                          // Permission granted, proceed with voice recognition
-                          startListening()
-                      } else {
-                          // Permission denied, show a message to the user
-                          showPermissionDeniedMessage()
-                      }
-                  }
+override fun onRequestPermissionsResult(
+    requestCode: Int,
+    permissions: Array<String>,
+    grantResults: IntArray
+) {
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    if (requestCode == REQUEST_RECORD_AUDIO && grantResults.isNotEmpty() &&
+        grantResults[0] == PackageManager.PERMISSION_GRANTED
+    ) {
+        // Permission granted, proceed with voice recognition
+        startListening()
+    } else {
+        // Permission denied, show a message to the user
+        showPermissionDeniedMessage()
+    }
+}`}
                 </code>
               </pre>
 
@@ -304,33 +304,33 @@ const AndroidSdk = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  // Download the language model
-                  ServiqAI.downloadOfflineModel(
-                      language = "en-US",
-                      callback = object : DownloadCallback {
-                          override fun onSuccess() {
-                              Log.d("Offline", "Model downloaded successfully")
-                              enableOfflineMode()
-                          }
-                          
-                          override fun onProgress(progress: Float) {
-                              progressBar.progress = (progress * 100).toInt()
-                          }
-                          
-                          override fun onError(error: Exception) {
-                              Log.e("Offline", "Download failed: ${error.message}")
-                          }
-                      }
-                  )
+                  {`// Download the language model
+ServiqAI.downloadOfflineModel(
+    language = "en-US",
+    callback = object : DownloadCallback {
+        override fun onSuccess() {
+            Log.d("Offline", "Model downloaded successfully")
+            enableOfflineMode()
+        }
+        
+        override fun onProgress(progress: Float) {
+            progressBar.progress = (progress * 100).toInt()
+        }
+        
+        override fun onError(error: Exception) {
+            Log.e("Offline", "Download failed: ${error.message}")
+        }
+    }
+)
                   
-                  // Enable offline mode
-                  private fun enableOfflineMode() {
-                      val options = RecognizerOptions.Builder()
-                          .preferOffline(true)
-                          .build()
-                      
-                      recognizer.startListening(options)
-                  }
+// Enable offline mode
+private fun enableOfflineMode() {
+    val options = RecognizerOptions.Builder()
+        .preferOffline(true)
+        .build()
+    
+    recognizer.startListening(options)
+}`}
                 </code>
               </pre>
             </div>

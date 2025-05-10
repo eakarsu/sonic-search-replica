@@ -46,9 +46,9 @@ const IosSdk = () => {
               <p>Add the following to your Package.swift file:</p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  dependencies: [
-                      .package(url: "https://github.com/serviqai/ios-sdk.git", from: "1.0.0")
-                  ]
+                  {`dependencies: [
+    .package(url: "https://github.com/serviqai/ios-sdk.git", from: "1.0.0")
+]`}
                 </code>
               </pre>
               
@@ -56,13 +56,13 @@ const IosSdk = () => {
               <p>Add the following to your Podfile:</p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  pod 'ServiqAIVoiceSDK', '~> 1.0'
+                  {`pod 'ServiqAIVoiceSDK', '~> 1.0'`}
                 </code>
               </pre>
               <p>Then run:</p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  pod install
+                  {`pod install`}
                 </code>
               </pre>
               
@@ -70,13 +70,13 @@ const IosSdk = () => {
               <p>Add the following to your Cartfile:</p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  github "serviqai/ios-sdk" ~> 1.0
+                  {`github "serviqai/ios-sdk" ~> 1.0`}
                 </code>
               </pre>
               <p>Then run:</p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  carthage update
+                  {`carthage update`}
                 </code>
               </pre>
 
@@ -87,20 +87,20 @@ const IosSdk = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  import ServiqAIVoiceSDK
+                  {`import ServiqAIVoiceSDK
                   
-                  class AppDelegate: UIResponder, UIApplicationDelegate {
-                      func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-                          
-                          ServiqAI.shared.configure(apiKey: "YOUR_API_KEY")
-                          
-                          // Optional configuration
-                          ServiqAI.shared.setLanguage("en-US")
-                          ServiqAI.shared.enableDebugLogging(true)
-                          
-                          return true
-                      }
-                  }
+class AppDelegate: UIResponder, UIApplicationDelegate {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        ServiqAI.shared.configure(apiKey: "YOUR_API_KEY")
+        
+        // Optional configuration
+        ServiqAI.shared.setLanguage("en-US")
+        ServiqAI.shared.enableDebugLogging(true)
+        
+        return true
+    }
+}`}
                 </code>
               </pre>
 
@@ -110,37 +110,37 @@ const IosSdk = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  import ServiqAIVoiceSDK
+                  {`import ServiqAIVoiceSDK
                   
-                  class VoiceViewController: UIViewController {
-                      
-                      private let recognizer = ServiqAI.shared.createRecognizer()
-                      
-                      @IBAction func startListeningTapped(_ sender: UIButton) {
-                          recognizer.startListening { [weak self] result in
-                              switch result {
-                              case .success(let transcript):
-                                  self?.handleTranscript(transcript)
-                              case .failure(let error):
-                                  self?.handleError(error)
-                              }
-                          }
-                      }
-                      
-                      @IBAction func stopListeningTapped(_ sender: UIButton) {
-                          recognizer.stopListening()
-                      }
-                      
-                      private func handleTranscript(_ transcript: String) {
-                          print("User said: \(transcript)")
-                          // Process the transcript...
-                      }
-                      
-                      private func handleError(_ error: ServiqAIError) {
-                          print("Error: \(error.localizedDescription)")
-                          // Handle the error...
-                      }
-                  }
+class VoiceViewController: UIViewController {
+    
+    private let recognizer = ServiqAI.shared.createRecognizer()
+    
+    @IBAction func startListeningTapped(_ sender: UIButton) {
+        recognizer.startListening { [weak self] result in
+            switch result {
+            case .success(let transcript):
+                self?.handleTranscript(transcript)
+            case .failure(let error):
+                self?.handleError(error)
+            }
+        }
+    }
+    
+    @IBAction func stopListeningTapped(_ sender: UIButton) {
+        recognizer.stopListening()
+    }
+    
+    private func handleTranscript(_ transcript: String) {
+        print("User said: \\(transcript)")
+        // Process the transcript...
+    }
+    
+    private func handleError(_ error: ServiqAIError) {
+        print("Error: \\(error.localizedDescription)")
+        // Handle the error...
+    }
+}`}
                 </code>
               </pre>
 
@@ -150,25 +150,25 @@ const IosSdk = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  let assistant = ServiqAI.shared.createAssistant()
+                  {`let assistant = ServiqAI.shared.createAssistant()
                   
-                  assistant.startConversation { [weak self] state in
-                      switch state {
-                      case .listening:
-                          self?.updateUI(isListening: true)
-                      case .processing:
-                          self?.updateUI(isProcessing: true)
-                      case .speaking(let text):
-                          self?.updateUI(isSpeaking: true, text: text)
-                      case .error(let error):
-                          self?.handleError(error)
-                      case .idle:
-                          self?.updateUI(isIdle: true)
-                      }
-                  }
+assistant.startConversation { [weak self] state in
+    switch state {
+    case .listening:
+        self?.updateUI(isListening: true)
+    case .processing:
+        self?.updateUI(isProcessing: true)
+    case .speaking(let text):
+        self?.updateUI(isSpeaking: true, text: text)
+    case .error(let error):
+        self?.handleError(error)
+    case .idle:
+        self?.updateUI(isIdle: true)
+    }
+}
                   
-                  // Stop the conversation when done
-                  assistant.stopConversation()
+// Stop the conversation when done
+assistant.stopConversation()`}
                 </code>
               </pre>
 
@@ -178,21 +178,21 @@ const IosSdk = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  let commandHandler = ServiqAI.shared.createCommandHandler()
+                  {`let commandHandler = ServiqAI.shared.createCommandHandler()
                   
-                  // Add commands
-                  commandHandler.addCommand("open settings") { [weak self] in
-                      self?.openSettings()
-                  }
+// Add commands
+commandHandler.addCommand("open settings") { [weak self] in
+    self?.openSettings()
+}
                   
-                  commandHandler.addCommand("show profile for {name}") { [weak self] params in
-                      if let name = params["name"] {
-                          self?.showProfile(for: name)
-                      }
-                  }
+commandHandler.addCommand("show profile for {name}") { [weak self] params in
+    if let name = params["name"] {
+        self?.showProfile(for: name)
+    }
+}
                   
-                  // Start listening for commands
-                  commandHandler.startListening()
+// Start listening for commands
+commandHandler.startListening()`}
                 </code>
               </pre>
 
@@ -202,22 +202,22 @@ const IosSdk = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  let tts = ServiqAI.shared.createSpeechSynthesizer()
+                  {`let tts = ServiqAI.shared.createSpeechSynthesizer()
                   
-                  tts.speak("Hello, how can I help you today?") { error in
-                      if let error = error {
-                          print("TTS Error: \(error.localizedDescription)")
-                      }
-                  }
+tts.speak("Hello, how can I help you today?") { error in
+    if let error = error {
+        print("TTS Error: \\(error.localizedDescription)")
+    }
+}
                   
-                  // With custom voice and options
-                  let options = TTSOptions(
-                      voice: "emma",
-                      speed: 1.1,
-                      pitch: 1.0
-                  )
+// With custom voice and options
+let options = TTSOptions(
+    voice: "emma",
+    speed: 1.1,
+    pitch: 1.0
+)
                   
-                  tts.speak("Welcome to our app!", options: options)
+tts.speak("Welcome to our app!", options: options)`}
                 </code>
               </pre>
 
@@ -228,11 +228,11 @@ const IosSdk = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  &lt;key&gt;NSMicrophoneUsageDescription&lt;/key&gt;
-                  &lt;string&gt;This app uses the microphone for voice commands.&lt;/string&gt;
+                  {`<key>NSMicrophoneUsageDescription</key>
+<string>This app uses the microphone for voice commands.</string>
                   
-                  &lt;key&gt;NSSpeechRecognitionUsageDescription&lt;/key&gt;
-                  &lt;string&gt;This app uses speech recognition for voice commands.&lt;/string&gt;
+<key>NSSpeechRecognitionUsageDescription</key>
+<string>This app uses speech recognition for voice commands.</string>`}
                 </code>
               </pre>
 
@@ -242,20 +242,20 @@ const IosSdk = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  // Download language model
-                  ServiqAI.shared.downloadOfflineModel("en-US") { result in
-                      switch result {
-                      case .success:
-                          print("Offline model ready")
-                          
-                          // Enable offline mode
-                          let options = RecognizerOptions(preferOffline: true)
-                          self.recognizer.startListening(options: options)
-                          
-                      case .failure(let error):
-                          print("Failed to download model: \(error)")
-                      }
-                  }
+                  {`// Download language model
+ServiqAI.shared.downloadOfflineModel("en-US") { result in
+    switch result {
+    case .success:
+        print("Offline model ready")
+        
+        // Enable offline mode
+        let options = RecognizerOptions(preferOffline: true)
+        self.recognizer.startListening(options: options)
+        
+    case .failure(let error):
+        print("Failed to download model: \\(error)")
+    }
+}`}
                 </code>
               </pre>
             </div>

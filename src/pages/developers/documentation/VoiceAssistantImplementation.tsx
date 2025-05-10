@@ -76,76 +76,76 @@ const VoiceAssistantImplementation = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  // Web SDK example
-                  class MyAssistant {
-                      constructor() {
-                          // Initialize ServiqAI components
-                          this.assistant = ServiqAI.createAssistant();
-                          this.tts = ServiqAI.createSpeechSynthesizer();
-                          
-                          // Set up state variables
-                          this.isListening = false;
-                          this.currentContext = null;
-                          this.conversationHistory = [];
-                          
-                          // Configure the assistant
-                          this.assistant.configure({
-                              name: 'Aria',
-                              voice: 'female',
-                              continuous: false
-                          });
-                      }
-                      
-                      start() {
-                          this.assistant.start({
-                              onStateChange: this.handleStateChange.bind(this),
-                              onResult: this.handleResult.bind(this),
-                              onError: this.handleError.bind(this)
-                          });
-                      }
-                      
-                      stop() {
-                          this.assistant.stop();
-                      }
-                      
-                      handleStateChange(state) {
-                          // Update UI based on state
-                          // (idle, listening, processing, speaking)
-                      }
-                      
-                      handleResult(result) {
-                          // Process assistant response
-                          const { input, response, intent, entities } = result;
-                          
-                          // Add to conversation history
-                          this.conversationHistory.push({ input, response });
-                          
-                          // Execute any additional actions based on intent
-                          this.executeAction(intent, entities);
-                      }
-                      
-                      handleError(error) {
-                          console.error('Assistant error:', error);
-                          this.tts.speak('I encountered an error. Please try again.');
-                      }
-                      
-                      executeAction(intent, entities) {
-                          // Implement custom actions based on detected intent
-                          switch (intent) {
-                              case 'play_music':
-                                  if (entities.song) {
-                                      this.playMusic(entities.song);
-                                  }
-                                  break;
-                              case 'set_timer':
-                                  if (entities.duration) {
-                                      this.setTimer(entities.duration);
-                                  }
-                                  break;
-                              // Add more intents as needed
-                          }
-                      }
-                  }
+                  {`// Web SDK example
+class MyAssistant {
+    constructor() {
+        // Initialize ServiqAI components
+        this.assistant = ServiqAI.createAssistant();
+        this.tts = ServiqAI.createSpeechSynthesizer();
+        
+        // Set up state variables
+        this.isListening = false;
+        this.currentContext = null;
+        this.conversationHistory = [];
+        
+        // Configure the assistant
+        this.assistant.configure({
+            name: 'Aria',
+            voice: 'female',
+            continuous: false
+        });
+    }
+    
+    start() {
+        this.assistant.start({
+            onStateChange: this.handleStateChange.bind(this),
+            onResult: this.handleResult.bind(this),
+            onError: this.handleError.bind(this)
+        });
+    }
+    
+    stop() {
+        this.assistant.stop();
+    }
+    
+    handleStateChange(state) {
+        // Update UI based on state
+        // (idle, listening, processing, speaking)
+    }
+    
+    handleResult(result) {
+        // Process assistant response
+        const { input, response, intent, entities } = result;
+        
+        // Add to conversation history
+        this.conversationHistory.push({ input, response });
+        
+        // Execute any additional actions based on intent
+        this.executeAction(intent, entities);
+    }
+    
+    handleError(error) {
+        console.error('Assistant error:', error);
+        this.tts.speak('I encountered an error. Please try again.');
+    }
+    
+    executeAction(intent, entities) {
+        // Implement custom actions based on detected intent
+        switch (intent) {
+            case 'play_music':
+                if (entities.song) {
+                    this.playMusic(entities.song);
+                }
+                break;
+            case 'set_timer':
+                if (entities.duration) {
+                    this.setTimer(entities.duration);
+                }
+                break;
+            // Add more intents as needed
+        }
+    }
+}`}
                 </code>
               </pre>
 
@@ -155,25 +155,25 @@ const VoiceAssistantImplementation = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  // Define domain for a music assistant
-                  const musicDomain = {
-                      name: 'music_assistant',
-                      phrases: [
-                          { text: 'play some music', weight: 1.5 },
-                          { text: 'play the song', weight: 1.2 },
-                          { text: 'skip this track', weight: 1.3 }
-                      ],
-                      terms: [
-                          'playlist',
-                          'album',
-                          'artist',
-                          'track',
-                          'genre'
-                      ]
-                  };
+                  {`// Define domain for a music assistant
+const musicDomain = {
+    name: 'music_assistant',
+    phrases: [
+        { text: 'play some music', weight: 1.5 },
+        { text: 'play the song', weight: 1.2 },
+        { text: 'skip this track', weight: 1.3 }
+    ],
+    terms: [
+        'playlist',
+        'album',
+        'artist',
+        'track',
+        'genre'
+    ]
+};
                   
-                  // Register the domain with ServiqAI
-                  ServiqAI.registerDomain(musicDomain);
+// Register the domain with ServiqAI
+ServiqAI.registerDomain(musicDomain);`}
                 </code>
               </pre>
 
@@ -183,50 +183,50 @@ const VoiceAssistantImplementation = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  class ConversationManager {
-                      constructor() {
-                          this.context = {};
-                          this.currentFlow = null;
-                      }
-                      
-                      handleUserInput(input, intent, entities) {
-                          // Store entities in context
-                          if (entities) {
-                              this.context = { ...this.context, ...entities };
-                          }
-                          
-                          // Start a flow if not already in one
-                          if (!this.currentFlow && intent === 'book_restaurant') {
-                              return this.startRestaurantBookingFlow();
-                          }
-                          
-                          // Continue current flow
-                          if (this.currentFlow === 'restaurant_booking') {
-                              return this.continueRestaurantBookingFlow(input, entities);
-                          }
-                          
-                          // Default response if no flow matches
-                          return {
-                              response: "I'm not sure how to help with that.",
-                              action: null
-                          };
-                      }
-                      
-                      startRestaurantBookingFlow() {
-                          this.currentFlow = 'restaurant_booking';
-                          this.flowStep = 1;
-                          
-                          return {
-                              response: "I can help you book a restaurant. What cuisine are you interested in?",
-                              action: null
-                          };
-                      }
-                      
-                      continueRestaurantBookingFlow(input, entities) {
-                          // Logic for multi-step restaurant booking
-                          // Ask for cuisine, location, date, time, party size, etc.
-                      }
-                  }
+                  {`class ConversationManager {
+    constructor() {
+        this.context = {};
+        this.currentFlow = null;
+    }
+    
+    handleUserInput(input, intent, entities) {
+        // Store entities in context
+        if (entities) {
+            this.context = { ...this.context, ...entities };
+        }
+        
+        // Start a flow if not already in one
+        if (!this.currentFlow && intent === 'book_restaurant') {
+            return this.startRestaurantBookingFlow();
+        }
+        
+        // Continue current flow
+        if (this.currentFlow === 'restaurant_booking') {
+            return this.continueRestaurantBookingFlow(input, entities);
+        }
+        
+        // Default response if no flow matches
+        return {
+            response: "I'm not sure how to help with that.",
+            action: null
+        };
+    }
+    
+    startRestaurantBookingFlow() {
+        this.currentFlow = 'restaurant_booking';
+        this.flowStep = 1;
+        
+        return {
+            response: "I can help you book a restaurant. What cuisine are you interested in?",
+            action: null
+        };
+    }
+    
+    continueRestaurantBookingFlow(input, entities) {
+        // Logic for multi-step restaurant booking
+        // Ask for cuisine, location, date, time, party size, etc.
+    }
+}`}
                 </code>
               </pre>
 
@@ -236,34 +236,34 @@ const VoiceAssistantImplementation = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  function updateAssistantUI(state) {
-                      const assistantElement = document.getElementById('assistant');
-                      
-                      // Clear existing classes
-                      assistantElement.className = 'assistant';
-                      
-                      // Add appropriate class based on state
-                      switch (state) {
-                          case 'idle':
-                              assistantElement.classList.add('assistant-idle');
-                              break;
-                          case 'listening':
-                              assistantElement.classList.add('assistant-listening');
-                              // Show animation for microphone activity
-                              showListeningAnimation();
-                              break;
-                          case 'processing':
-                              assistantElement.classList.add('assistant-processing');
-                              // Show thinking animation
-                              showProcessingAnimation();
-                              break;
-                          case 'speaking':
-                              assistantElement.classList.add('assistant-speaking');
-                              // Show speaking animation
-                              showSpeakingAnimation();
-                              break;
-                      }
-                  }
+                  {`function updateAssistantUI(state) {
+    const assistantElement = document.getElementById('assistant');
+    
+    // Clear existing classes
+    assistantElement.className = 'assistant';
+    
+    // Add appropriate class based on state
+    switch (state) {
+        case 'idle':
+            assistantElement.classList.add('assistant-idle');
+            break;
+        case 'listening':
+            assistantElement.classList.add('assistant-listening');
+            // Show animation for microphone activity
+            showListeningAnimation();
+            break;
+        case 'processing':
+            assistantElement.classList.add('assistant-processing');
+            // Show thinking animation
+            showProcessingAnimation();
+            break;
+        case 'speaking':
+            assistantElement.classList.add('assistant-speaking');
+            // Show speaking animation
+            showSpeakingAnimation();
+            break;
+    }
+}`}
                 </code>
               </pre>
 
@@ -273,32 +273,32 @@ const VoiceAssistantImplementation = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  function handleAssistantError(error) {
-                      console.error('Assistant error:', error);
-                      
-                      switch (error.code) {
-                          case 'no_speech':
-                              // User didn't say anything
-                              return "I didn't hear anything. Could you please try again?";
-                              
-                          case 'no_recognition':
-                              // Speech wasn't recognized
-                              return "I couldn't understand that. Could you please rephrase?";
-                              
-                          case 'network_error':
-                              // Network connectivity issue
-                              return "I'm having trouble connecting to the internet. Please check your connection.";
-                              
-                          case 'permission_denied':
-                              // Microphone permission denied
-                              showPermissionInstructions();
-                              return "I need microphone access to hear you. Please enable microphone permissions.";
-                              
-                          default:
-                              // Generic error
-                              return "Something went wrong. Let's try again.";
-                      }
-                  }
+                  {`function handleAssistantError(error) {
+    console.error('Assistant error:', error);
+    
+    switch (error.code) {
+        case 'no_speech':
+            // User didn't say anything
+            return "I didn't hear anything. Could you please try again?";
+            
+        case 'no_recognition':
+            // Speech wasn't recognized
+            return "I couldn't understand that. Could you please rephrase?";
+            
+        case 'network_error':
+            // Network connectivity issue
+            return "I'm having trouble connecting to the internet. Please check your connection.";
+            
+        case 'permission_denied':
+            // Microphone permission denied
+            showPermissionInstructions();
+            return "I need microphone access to hear you. Please enable microphone permissions.";
+            
+        default:
+            // Generic error
+            return "Something went wrong. Let's try again.";
+    }
+}`}
                 </code>
               </pre>
 

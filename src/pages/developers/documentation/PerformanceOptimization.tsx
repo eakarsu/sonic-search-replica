@@ -49,18 +49,18 @@ const PerformanceOptimization = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  // Add weighted phrases for better recognition
-                  ServiqAI.addCustomPhrases([
-                      { text: 'configure system settings', weight: 2.0 },
-                      { text: 'adjust audio levels', weight: 1.5 }
-                  ]);
+                  {`// Add weighted phrases for better recognition
+ServiqAI.addCustomPhrases([
+    { text: 'configure system settings', weight: 2.0 },
+    { text: 'adjust audio levels', weight: 1.5 }
+]);
                   
-                  // Add domain-specific terminology
-                  ServiqAI.addCustomTerms([
-                      'API endpoint',
-                      'REST interface',
-                      'OAuth authentication'
-                  ]);
+// Add domain-specific terminology
+ServiqAI.addCustomTerms([
+    'API endpoint',
+    'REST interface',
+    'OAuth authentication'
+]);`}
                 </code>
               </pre>
 
@@ -70,22 +70,22 @@ const PerformanceOptimization = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  // Provide context based on application state
-                  recognizer.start({
-                      context: {
-                          // Current screen or state
-                          currentView: 'playlist',
-                          
-                          // Recently used items
-                          recentItems: ['Jazz Favorites', 'Running Mix', 'Daily Podcast'],
-                          
-                          // Current user activity
-                          userActivity: 'browsing'
-                      },
-                      onResult: (result) => {
-                          console.log('Recognition result:', result);
-                      }
-                  });
+                  {`// Provide context based on application state
+recognizer.start({
+    context: {
+        // Current screen or state
+        currentView: 'playlist',
+        
+        // Recently used items
+        recentItems: ['Jazz Favorites', 'Running Mix', 'Daily Podcast'],
+        
+        // Current user activity
+        userActivity: 'browsing'
+    },
+    onResult: (result) => {
+        console.log('Recognition result:', result);
+    }
+});`}
                 </code>
               </pre>
 
@@ -95,18 +95,18 @@ const PerformanceOptimization = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  // Configure for noisy environments
-                  recognizer.start({
-                      acousticOptions: {
-                          environmentType: 'noisy', // 'quiet', 'moderate', 'noisy', 'very_noisy'
-                          noiseReduction: true,
-                          echoCancellation: true,
-                          automaticGainControl: true
-                      },
-                      onResult: (result) => {
-                          console.log('Recognition result:', result);
-                      }
-                  });
+                  {`// Configure for noisy environments
+recognizer.start({
+    acousticOptions: {
+        environmentType: 'noisy', // 'quiet', 'moderate', 'noisy', 'very_noisy'
+        noiseReduction: true,
+        echoCancellation: true,
+        automaticGainControl: true
+    },
+    onResult: (result) => {
+        console.log('Recognition result:', result);
+    }
+});`}
                 </code>
               </pre>
 
@@ -118,25 +118,25 @@ const PerformanceOptimization = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  // Download and enable edge models
-                  ServiqAI.downloadEdgeModel('en-US', {
-                      components: ['asr', 'nlu'], // ASR = speech recognition, NLU = natural language understanding
-                      size: 'compact', // 'compact' or 'full'
-                      onProgress: (progress) => {
-                          console.log(`Download progress: ${progress * 100}%`);
-                      },
-                      onComplete: () => {
-                          console.log('Edge model ready');
-                          
-                          // Enable edge processing
-                          recognizer.start({
-                              processingMode: 'edge', // 'edge', 'cloud', or 'hybrid'
-                              onResult: (result) => {
-                                  console.log('Recognition result:', result);
-                              }
-                          });
-                      }
-                  });
+                  {`// Download and enable edge models
+ServiqAI.downloadEdgeModel('en-US', {
+    components: ['asr', 'nlu'], // ASR = speech recognition, NLU = natural language understanding
+    size: 'compact', // 'compact' or 'full'
+    onProgress: (progress) => {
+        console.log(\`Download progress: \${progress * 100}%\`);
+    },
+    onComplete: () => {
+        console.log('Edge model ready');
+        
+        // Enable edge processing
+        recognizer.start({
+            processingMode: 'edge', // 'edge', 'cloud', or 'hybrid'
+            onResult: (result) => {
+                console.log('Recognition result:', result);
+            }
+        });
+    }
+});`}
                 </code>
               </pre>
 
@@ -146,18 +146,18 @@ const PerformanceOptimization = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  // Enable streaming recognition
-                  recognizer.start({
-                      streaming: true,
-                      onPartialResult: (partialText) => {
-                          // Update UI with interim results
-                          displayInterimResults(partialText);
-                      },
-                      onResult: (finalText) => {
-                          // Process final result
-                          processResult(finalText);
-                      }
-                  });
+                  {`// Enable streaming recognition
+recognizer.start({
+    streaming: true,
+    onPartialResult: (partialText) => {
+        // Update UI with interim results
+        displayInterimResults(partialText);
+    },
+    onResult: (finalText) => {
+        // Process final result
+        processResult(finalText);
+    }
+});`}
                 </code>
               </pre>
 
@@ -167,15 +167,15 @@ const PerformanceOptimization = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  // Configure network strategy
-                  ServiqAI.configure({
-                      network: {
-                          adaptiveQuality: true, // Adjust quality based on connection
-                          reconnectStrategy: 'aggressive', // 'conservative' or 'aggressive'
-                          cacheResults: true, // Cache recent recognition results
-                          audioCompression: 'adaptive' // 'none', 'light', 'medium', 'high', 'adaptive'
-                      }
-                  });
+                  {`// Configure network strategy
+ServiqAI.configure({
+    network: {
+        adaptiveQuality: true, // Adjust quality based on connection
+        reconnectStrategy: 'aggressive', // 'conservative' or 'aggressive'
+        cacheResults: true, // Cache recent recognition results
+        audioCompression: 'adaptive' // 'none', 'light', 'medium', 'high', 'adaptive'
+    }
+});`}
                 </code>
               </pre>
 
@@ -187,24 +187,24 @@ const PerformanceOptimization = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  // Wake word detection (most efficient)
-                  recognizer.startWakeWordDetection({
-                      wakeWords: ['hey assistant', 'hello assistant'],
-                      sensitivity: 0.7, // 0.0-1.0, higher values are more sensitive
-                      onWakeWordDetected: () => {
-                          // Start full recognition when wake word is detected
-                          recognizer.startListening();
-                      }
-                  });
+                  {`// Wake word detection (most efficient)
+recognizer.startWakeWordDetection({
+    wakeWords: ['hey assistant', 'hello assistant'],
+    sensitivity: 0.7, // 0.0-1.0, higher values are more sensitive
+    onWakeWordDetected: () => {
+        // Start full recognition when wake word is detected
+        recognizer.startListening();
+    }
+});
                   
-                  // Voice activity detection (moderate efficiency)
-                  recognizer.start({
-                      vadMode: 'aggressive', // 'relaxed', 'moderate', 'aggressive'
-                      vadTimeout: 1000, // ms of silence before stopping
-                      onResult: (result) => {
-                          console.log('Recognition result:', result);
-                      }
-                  });
+// Voice activity detection (moderate efficiency)
+recognizer.start({
+    vadMode: 'aggressive', // 'relaxed', 'moderate', 'aggressive'
+    vadTimeout: 1000, // ms of silence before stopping
+    onResult: (result) => {
+        console.log('Recognition result:', result);
+    }
+});`}
                 </code>
               </pre>
 
@@ -214,18 +214,18 @@ const PerformanceOptimization = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  // Check device capabilities
-                  const deviceCapabilities = ServiqAI.checkDeviceCapabilities();
+                  {`// Check device capabilities
+const deviceCapabilities = ServiqAI.checkDeviceCapabilities();
                   
-                  // Configure based on capabilities
-                  const configOptions = {
-                      modelSize: deviceCapabilities.isHighEnd ? 'full' : 'compact',
-                      processingMode: deviceCapabilities.isLowPower ? 'cloud' : 'hybrid',
-                      audioSampleRate: deviceCapabilities.isLowEnd ? 16000 : 44100,
-                      multiChannelProcessing: deviceCapabilities.hasMultipleMics
-                  };
+// Configure based on capabilities
+const configOptions = {
+    modelSize: deviceCapabilities.isHighEnd ? 'full' : 'compact',
+    processingMode: deviceCapabilities.isLowPower ? 'cloud' : 'hybrid',
+    audioSampleRate: deviceCapabilities.isLowEnd ? 16000 : 44100,
+    multiChannelProcessing: deviceCapabilities.hasMultipleMics
+};
                   
-                  ServiqAI.configure(configOptions);
+ServiqAI.configure(configOptions);`}
                 </code>
               </pre>
 
@@ -235,30 +235,30 @@ const PerformanceOptimization = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  // Dynamic processing mode selection
-                  function selectOptimalProcessingMode() {
-                      const batteryLevel = getBatteryLevel(); // Your function to check battery
-                      const networkQuality = checkNetworkQuality(); // Your function to check network
-                      
-                      if (batteryLevel < 0.2) {
-                          // Battery is low, use cloud processing to save power
-                          return 'cloud';
-                      } else if (networkQuality === 'poor') {
-                          // Poor network, use edge processing
-                          return 'edge';
-                      } else {
-                          // Good conditions, use hybrid for best performance
-                          return 'hybrid';
-                      }
-                  }
+                  {`// Dynamic processing mode selection
+function selectOptimalProcessingMode() {
+    const batteryLevel = getBatteryLevel(); // Your function to check battery
+    const networkQuality = checkNetworkQuality(); // Your function to check network
+    
+    if (batteryLevel < 0.2) {
+        // Battery is low, use cloud processing to save power
+        return 'cloud';
+    } else if (networkQuality === 'poor') {
+        // Poor network, use edge processing
+        return 'edge';
+    } else {
+        // Good conditions, use hybrid for best performance
+        return 'hybrid';
+    }
+}
                   
-                  // Start recognition with optimal mode
-                  recognizer.start({
-                      processingMode: selectOptimalProcessingMode(),
-                      onResult: (result) => {
-                          console.log('Recognition result:', result);
-                      }
-                  });
+// Start recognition with optimal mode
+recognizer.start({
+    processingMode: selectOptimalProcessingMode(),
+    onResult: (result) => {
+        console.log('Recognition result:', result);
+    }
+});`}
                 </code>
               </pre>
 
@@ -270,18 +270,18 @@ const PerformanceOptimization = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  // Configure for noise resilience
-                  recognizer.start({
-                      noiseHandling: {
-                          noiseReduction: 'high', // 'off', 'low', 'medium', 'high'
-                          acousticEchoCancellation: true,
-                          beamforming: true, // If device has multiple microphones
-                          adaptiveFiltering: true
-                      },
-                      onResult: (result) => {
-                          console.log('Recognition result:', result);
-                      }
-                  });
+                  {`// Configure for noise resilience
+recognizer.start({
+    noiseHandling: {
+        noiseReduction: 'high', // 'off', 'low', 'medium', 'high'
+        acousticEchoCancellation: true,
+        beamforming: true, // If device has multiple microphones
+        adaptiveFiltering: true
+    },
+    onResult: (result) => {
+        console.log('Recognition result:', result);
+    }
+});`}
                 </code>
               </pre>
 
@@ -291,13 +291,13 @@ const PerformanceOptimization = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  // Enable user adaptation
-                  ServiqAI.enableUserAdaptation({
-                      collectSamples: true,
-                      adaptationRate: 'moderate', // 'slow', 'moderate', 'fast'
-                      persistProfile: true, // Save adaptation between sessions
-                      userIdentifier: 'user123' // To track specific user's profile
-                  });
+                  {`// Enable user adaptation
+ServiqAI.enableUserAdaptation({
+    collectSamples: true,
+    adaptationRate: 'moderate', // 'slow', 'moderate', 'fast'
+    persistProfile: true, // Save adaptation between sessions
+    userIdentifier: 'user123' // To track specific user's profile
+});`}
                 </code>
               </pre>
 
@@ -307,24 +307,24 @@ const PerformanceOptimization = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  // Enable performance monitoring
-                  ServiqAI.enablePerformanceMonitoring({
-                      metrics: ['accuracy', 'latency', 'resourceUsage'],
-                      sampleRate: 0.1, // Log 10% of interactions
-                      detailedLogging: true,
-                      onReport: (performanceData) => {
-                          console.log('Performance data:', performanceData);
-                          // Send to your analytics system
-                      }
-                  });
+                  {`// Enable performance monitoring
+ServiqAI.enablePerformanceMonitoring({
+    metrics: ['accuracy', 'latency', 'resourceUsage'],
+    sampleRate: 0.1, // Log 10% of interactions
+    detailedLogging: true,
+    onReport: (performanceData) => {
+        console.log('Performance data:', performanceData);
+        // Send to your analytics system
+    }
+});
                   
-                  // Get performance statistics
-                  ServiqAI.getPerformanceStats()
-                      .then(stats => {
-                          console.log('Avg. recognition time:', stats.avgRecognitionTime);
-                          console.log('Recognition success rate:', stats.successRate);
-                          console.log('Word error rate:', stats.wordErrorRate);
-                      });
+// Get performance statistics
+ServiqAI.getPerformanceStats()
+    .then(stats => {
+        console.log('Avg. recognition time:', stats.avgRecognitionTime);
+        console.log('Recognition success rate:', stats.successRate);
+        console.log('Word error rate:', stats.wordErrorRate);
+    });`}
                 </code>
               </pre>
 
@@ -334,32 +334,32 @@ const PerformanceOptimization = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  // Define test configurations
-                  const testConfigs = [
-                      {
-                          name: 'baseline',
-                          config: { processingMode: 'cloud', vadMode: 'moderate' }
-                      },
-                      {
-                          name: 'edgeProcessing',
-                          config: { processingMode: 'edge', vadMode: 'aggressive' }
-                      },
-                      {
-                          name: 'hybrid',
-                          config: { processingMode: 'hybrid', vadMode: 'moderate' }
-                      }
-                  ];
+                  {`// Define test configurations
+const testConfigs = [
+    {
+        name: 'baseline',
+        config: { processingMode: 'cloud', vadMode: 'moderate' }
+    },
+    {
+        name: 'edgeProcessing',
+        config: { processingMode: 'edge', vadMode: 'aggressive' }
+    },
+    {
+        name: 'hybrid',
+        config: { processingMode: 'hybrid', vadMode: 'moderate' }
+    }
+];
                   
-                  // Assign user to test group
-                  const testGroup = assignUserToTestGroup(userId, testConfigs);
+// Assign user to test group
+const testGroup = assignUserToTestGroup(userId, testConfigs);
                   
-                  // Apply test configuration
-                  recognizer.start({
-                      ...testGroup.config,
-                      onResult: (result) => {
-                          logTestResult(testGroup.name, result);
-                      }
-                  });
+// Apply test configuration
+recognizer.start({
+    ...testGroup.config,
+    onResult: (result) => {
+        logTestResult(testGroup.name, result);
+    }
+});`}
                 </code>
               </pre>
             </div>

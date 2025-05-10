@@ -44,18 +44,18 @@ const WebSdk = () => {
               <h4>Using npm/yarn:</h4>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  # Using npm
-                  npm install serviqai-web-sdk
+                  {`# Using npm
+npm install serviqai-web-sdk
                   
-                  # Using yarn
-                  yarn add serviqai-web-sdk
+# Using yarn
+yarn add serviqai-web-sdk`}
                 </code>
               </pre>
               
               <h4>Using CDN:</h4>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  &lt;script src="https://cdn.serviqai.com/sdk/v1/serviqai.min.js"&gt;&lt;/script&gt;
+                  {`<script src="https://cdn.serviqai.com/sdk/v1/serviqai.min.js"></script>`}
                 </code>
               </pre>
 
@@ -67,28 +67,28 @@ const WebSdk = () => {
               <h4>ES6 Module:</h4>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  import ServiqAI from 'serviqai-web-sdk';
+                  {`import ServiqAI from 'serviqai-web-sdk';
                   
-                  // Initialize the SDK
-                  ServiqAI.initialize({
-                      apiKey: 'YOUR_API_KEY',
-                      language: 'en-US', // optional
-                      debugMode: false // optional
-                  });
+// Initialize the SDK
+ServiqAI.initialize({
+    apiKey: 'YOUR_API_KEY',
+    language: 'en-US', // optional
+    debugMode: false // optional
+});`}
                 </code>
               </pre>
               
               <h4>Script Tag:</h4>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  &lt;script&gt;
-                    // Initialize the SDK
-                    window.ServiqAI.initialize({
-                        apiKey: 'YOUR_API_KEY',
-                        language: 'en-US', // optional
-                        debugMode: false // optional
-                    });
-                  &lt;/script&gt;
+                  {`<script>
+  // Initialize the SDK
+  window.ServiqAI.initialize({
+      apiKey: 'YOUR_API_KEY',
+      language: 'en-US', // optional
+      debugMode: false // optional
+  });
+</script>`}
                 </code>
               </pre>
 
@@ -98,32 +98,32 @@ const WebSdk = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  const recognizer = ServiqAI.createRecognizer();
+                  {`const recognizer = ServiqAI.createRecognizer();
                   
-                  // Start listening
-                  function startListening() {
-                      recognizer.start({
-                          onResult: (text) => {
-                              console.log('User said:', text);
-                              document.getElementById('result').textContent = text;
-                          },
-                          onPartialResult: (partialText) => {
-                              document.getElementById('partial-result').textContent = partialText;
-                          },
-                          onError: (error) => {
-                              console.error('Recognition error:', error);
-                          }
-                      });
-                  }
+// Start listening
+function startListening() {
+    recognizer.start({
+        onResult: (text) => {
+            console.log('User said:', text);
+            document.getElementById('result').textContent = text;
+        },
+        onPartialResult: (partialText) => {
+            document.getElementById('partial-result').textContent = partialText;
+        },
+        onError: (error) => {
+            console.error('Recognition error:', error);
+        }
+    });
+}
                   
-                  // Stop listening
-                  function stopListening() {
-                      recognizer.stop();
-                  }
+// Stop listening
+function stopListening() {
+    recognizer.stop();
+}
                   
-                  // Button event listeners
-                  document.getElementById('start-button').addEventListener('click', startListening);
-                  document.getElementById('stop-button').addEventListener('click', stopListening);
+// Button event listeners
+document.getElementById('start-button').addEventListener('click', startListening);
+document.getElementById('stop-button').addEventListener('click', stopListening);`}
                 </code>
               </pre>
 
@@ -133,51 +133,51 @@ const WebSdk = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  const assistant = ServiqAI.createAssistant();
+                  {`const assistant = ServiqAI.createAssistant();
                   
-                  // Configure the assistant
-                  assistant.configure({
-                      name: 'Aria', // optional
-                      voice: 'female', // optional
-                      wakeWord: 'hey assistant', // optional wake word
-                      continuous: true // listen continuously for wake word
-                  });
+// Configure the assistant
+assistant.configure({
+    name: 'Aria', // optional
+    voice: 'female', // optional
+    wakeWord: 'hey assistant', // optional wake word
+    continuous: true // listen continuously for wake word
+});
                   
-                  // Start the assistant
-                  assistant.start({
-                      onStateChange: (state) => {
-                          switch (state) {
-                              case 'idle':
-                                  updateUI('idle');
-                                  break;
-                              case 'listening':
-                                  updateUI('listening');
-                                  break;
-                              case 'processing':
-                                  updateUI('processing');
-                                  break;
-                              case 'speaking':
-                                  updateUI('speaking');
-                                  break;
-                          }
-                      },
-                      onResult: (result) => {
-                          // Result contains the user's input and assistant's response
-                          console.log('User:', result.input);
-                          console.log('Assistant:', result.response);
-                          
-                          // Display the response
-                          document.getElementById('assistant-response').textContent = result.response;
-                      },
-                      onError: (error) => {
-                          console.error('Assistant error:', error);
-                      }
-                  });
+// Start the assistant
+assistant.start({
+    onStateChange: (state) => {
+        switch (state) {
+            case 'idle':
+                updateUI('idle');
+                break;
+            case 'listening':
+                updateUI('listening');
+                break;
+            case 'processing':
+                updateUI('processing');
+                break;
+            case 'speaking':
+                updateUI('speaking');
+                break;
+        }
+    },
+    onResult: (result) => {
+        // Result contains the user's input and assistant's response
+        console.log('User:', result.input);
+        console.log('Assistant:', result.response);
+        
+        // Display the response
+        document.getElementById('assistant-response').textContent = result.response;
+    },
+    onError: (error) => {
+        console.error('Assistant error:', error);
+    }
+});
                   
-                  // Stop the assistant
-                  function stopAssistant() {
-                      assistant.stop();
-                  }
+// Stop the assistant
+function stopAssistant() {
+    assistant.stop();
+}`}
                 </code>
               </pre>
 
@@ -187,32 +187,32 @@ const WebSdk = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  const commandHandler = ServiqAI.createCommandHandler();
+                  {`const commandHandler = ServiqAI.createCommandHandler();
                   
-                  // Add commands
-                  commandHandler.addCommand('open menu', () => {
-                      openMenu();
-                  });
+// Add commands
+commandHandler.addCommand('open menu', () => {
+    openMenu();
+});
                   
-                  commandHandler.addCommand('go to {page}', (params) => {
-                      if (params.page) {
-                          navigateToPage(params.page);
-                      }
-                  });
+commandHandler.addCommand('go to {page}', (params) => {
+    if (params.page) {
+        navigateToPage(params.page);
+    }
+});
                   
-                  commandHandler.addCommand('search for {query}', (params) => {
-                      if (params.query) {
-                          searchFor(params.query);
-                      }
-                  });
+commandHandler.addCommand('search for {query}', (params) => {
+    if (params.query) {
+        searchFor(params.query);
+    }
+});
                   
-                  // Start listening for commands
-                  commandHandler.start();
+// Start listening for commands
+commandHandler.start();
                   
-                  // Stop listening for commands
-                  function stopCommandHandler() {
-                      commandHandler.stop();
-                  }
+// Stop listening for commands
+function stopCommandHandler() {
+    commandHandler.stop();
+}`}
                 </code>
               </pre>
 
@@ -222,31 +222,31 @@ const WebSdk = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  const tts = ServiqAI.createSpeechSynthesizer();
+                  {`const tts = ServiqAI.createSpeechSynthesizer();
                   
-                  // Basic usage
-                  tts.speak('Hello, welcome to our website!');
+// Basic usage
+tts.speak('Hello, welcome to our website!');
                   
-                  // With options
-                  tts.speak('How can I help you today?', {
-                      voice: 'emma', // voice name
-                      speed: 1.2, // speech rate
-                      pitch: 1.0, // voice pitch
-                      onStart: () => {
-                          console.log('Speech started');
-                      },
-                      onFinish: () => {
-                          console.log('Speech finished');
-                      },
-                      onError: (error) => {
-                          console.error('TTS error:', error);
-                      }
-                  });
+// With options
+tts.speak('How can I help you today?', {
+    voice: 'emma', // voice name
+    speed: 1.2, // speech rate
+    pitch: 1.0, // voice pitch
+    onStart: () => {
+        console.log('Speech started');
+    },
+    onFinish: () => {
+        console.log('Speech finished');
+    },
+    onError: (error) => {
+        console.error('TTS error:', error);
+    }
+});
                   
-                  // Stop speaking
-                  function stopSpeaking() {
-                      tts.stop();
-                  }
+// Stop speaking
+function stopSpeaking() {
+    tts.stop();
+}`}
                 </code>
               </pre>
 
@@ -256,38 +256,38 @@ const WebSdk = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  async function checkMicrophonePermission() {
-                      try {
-                          const permissionStatus = await ServiqAI.checkPermissions();
-                          
-                          if (permissionStatus === 'granted') {
-                              console.log('Microphone permission already granted');
-                              startApp();
-                          } else if (permissionStatus === 'prompt') {
-                              console.log('Need to request microphone permission');
-                              requestPermission();
-                          } else {
-                              console.error('Microphone permission denied');
-                              showPermissionError();
-                          }
-                      } catch (error) {
-                          console.error('Error checking permissions:', error);
-                      }
-                  }
+                  {`async function checkMicrophonePermission() {
+    try {
+        const permissionStatus = await ServiqAI.checkPermissions();
+        
+        if (permissionStatus === 'granted') {
+            console.log('Microphone permission already granted');
+            startApp();
+        } else if (permissionStatus === 'prompt') {
+            console.log('Need to request microphone permission');
+            requestPermission();
+        } else {
+            console.error('Microphone permission denied');
+            showPermissionError();
+        }
+    } catch (error) {
+        console.error('Error checking permissions:', error);
+    }
+}
                   
-                  async function requestPermission() {
-                      try {
-                          const result = await ServiqAI.requestPermissions();
-                          
-                          if (result === 'granted') {
-                              startApp();
-                          } else {
-                              showPermissionError();
-                          }
-                      } catch (error) {
-                          console.error('Error requesting permission:', error);
-                      }
-                  }
+async function requestPermission() {
+    try {
+        const result = await ServiqAI.requestPermissions();
+        
+        if (result === 'granted') {
+            startApp();
+        } else {
+            showPermissionError();
+        }
+    } catch (error) {
+        console.error('Error requesting permission:', error);
+    }
+}`}
                 </code>
               </pre>
 
@@ -299,19 +299,19 @@ const WebSdk = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  // Add domain-specific terms
-                  ServiqAI.addCustomTerms([
-                      'ServiqAI',
-                      'voice recognition',
-                      'speech synthesis',
-                      'natural language understanding'
-                  ]);
+                  {`// Add domain-specific terms
+ServiqAI.addCustomTerms([
+    'ServiqAI',
+    'voice recognition',
+    'speech synthesis',
+    'natural language understanding'
+]);
                   
-                  // Add phrases with higher weight
-                  ServiqAI.addCustomPhrases([
-                      { text: 'show me the documentation', weight: 2.0 },
-                      { text: 'how do I integrate the SDK', weight: 1.5 }
-                  ]);
+// Add phrases with higher weight
+ServiqAI.addCustomPhrases([
+    { text: 'show me the documentation', weight: 2.0 },
+    { text: 'how do I integrate the SDK', weight: 1.5 }
+]);`}
                 </code>
               </pre>
               
@@ -321,12 +321,12 @@ const WebSdk = () => {
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
-                  // Enable analytics
-                  ServiqAI.enableAnalytics({
-                      trackUsage: true,
-                      trackPerformance: true,
-                      anonymizeData: true // for privacy
-                  });
+                  {`// Enable analytics
+ServiqAI.enableAnalytics({
+    trackUsage: true,
+    trackPerformance: true,
+    anonymizeData: true // for privacy
+});`}
                 </code>
               </pre>
             </div>
