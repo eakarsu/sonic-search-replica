@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -136,7 +137,7 @@ export function Header() {
         <div className="flex items-center gap-6 md:gap-10">
           <Link to="/" className="flex items-center space-x-2">
             <div className="gradient-primary text-white text-2xl font-bold rounded-lg px-3 py-1">
-              VoiceWave
+              ServiqAI
             </div>
           </Link>
           
@@ -210,7 +211,7 @@ export function Header() {
             <div className="flex items-center justify-between">
               <Link to="/" className="flex items-center space-x-2" onClick={() => setMobileMenuOpen(false)}>
                 <div className="gradient-primary text-white text-2xl font-bold rounded-lg px-3 py-1">
-                  VoiceWave
+                  ServiqAI
                 </div>
               </Link>
               <button

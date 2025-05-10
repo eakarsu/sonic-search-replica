@@ -11,7 +11,7 @@ const AboutUs = () => {
       <ScrollArea className="flex-grow">
         <main className="container mx-auto py-12">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-4xl font-bold mb-4 text-soundblue-500">About VoiceWave</h1>
+            <h1 className="text-4xl font-bold mb-4 text-soundblue-500">About ServiqAI</h1>
             <p className="text-xl text-gray-700 mb-8">
               We're pioneers in voice AI technology, creating more natural ways for people to interact with their devices.
             </p>
@@ -28,13 +28,13 @@ const AboutUs = () => {
             <div className="mb-12">
               <h2 className="text-2xl font-semibold mb-4">Our Story</h2>
               <p className="text-gray-700 mb-4">
-                Founded in 2015, VoiceWave began with a simple but ambitious goal: to create voice technology that could understand and respond to complex, conversational language just as humans do.
+                Founded in 2015, ServiqAI began with a simple but ambitious goal: to create voice technology that could understand and respond to complex, conversational language just as humans do.
               </p>
               <p className="text-gray-700 mb-4">
                 Our team of AI researchers, linguists, and engineers developed proprietary deep learning algorithms that revolutionized the way machines understand human speech. Unlike conventional systems that rely on predefined commands, our technology can interpret natural language, follow context across multiple turns of conversation, and deliver meaningful responses.
               </p>
               <p className="text-gray-700 mb-4">
-                Today, VoiceWave technology powers millions of voice interactions daily across automotive, smart home, mobile, and enterprise applications, constantly improving through our advanced machine learning systems.
+                Today, ServiqAI technology powers millions of voice interactions daily across automotive, smart home, mobile, and enterprise applications, constantly improving through our advanced machine learning systems.
               </p>
             </div>
 

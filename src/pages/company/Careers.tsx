@@ -18,7 +18,7 @@ const Careers = () => {
             </p>
 
             <div className="mb-12">
-              <h2 className="text-2xl font-semibold mb-6">Why VoiceWave?</h2>
+              <h2 className="text-2xl font-semibold mb-6">Why ServiqAI?</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="bg-gray-50 p-6 rounded-lg flex">
                   <div className="mr-4 text-soundblue-500">

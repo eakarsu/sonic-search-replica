@@ -47,7 +47,7 @@ const Partners = () => {
                     </div>
                   </div>
                   <p className="text-gray-700 mb-4">
-                    "Implementing VoiceWave's AI technology has transformed our in-car experience. Driver satisfaction has increased by 35%, and our voice command accuracy is now at an industry-leading 98%."
+                    "Implementing ServiqAI's AI technology has transformed our in-car experience. Driver satisfaction has increased by 35%, and our voice command accuracy is now at an industry-leading 98%."
                   </p>
                   <Button variant="outline">Read Case Study</Button>
                 </div>
@@ -63,7 +63,7 @@ const Partners = () => {
                     </div>
                   </div>
                   <p className="text-gray-700 mb-4">
-                    "VoiceWave's SDK allowed us to integrate advanced voice commands into our smart home ecosystem in just weeks, not months. Our customers love the natural conversation flow and accuracy."
+                    "ServiqAI's SDK allowed us to integrate advanced voice commands into our smart home ecosystem in just weeks, not months. Our customers love the natural conversation flow and accuracy."
                   </p>
                   <Button variant="outline">Read Case Study</Button>
                 </div>
@@ -79,7 +79,7 @@ const Partners = () => {
                     </div>
                   </div>
                   <p className="text-gray-700 mb-4">
-                    "The accuracy and security of VoiceWave's platform has been crucial for our medical applications. Their technology has helped us create hands-free solutions that improve efficiency and patient care."
+                    "The accuracy and security of ServiqAI's platform has been crucial for our medical applications. Their technology has helped us create hands-free solutions that improve efficiency and patient care."
                   </p>
                   <Button variant="outline">Read Case Study</Button>
                 </div>

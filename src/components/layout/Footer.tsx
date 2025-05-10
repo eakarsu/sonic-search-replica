@@ -63,7 +63,7 @@ const Footer = () => {
           <div className="col-span-2 md:col-span-1">
             <Link to="/" className="flex items-center space-x-2 mb-6">
               <div className="gradient-primary text-white text-2xl font-bold rounded-lg px-3 py-1">
-                VoiceWave
+                ServiqAI
               </div>
             </Link>
             <p className="text-gray-600 mb-6">
@@ -110,7 +110,7 @@ const Footer = () => {
         <div className="mt-12 pt-8 border-t border-gray-200">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-sm text-gray-500">
-              © {new Date().getFullYear()} VoiceWave AI. All rights reserved.
+              © {new Date().getFullYear()} ServiqAI. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a href="#" className="text-sm text-gray-500 hover:text-soundblue-500 transition-colors">

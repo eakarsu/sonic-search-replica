@@ -26,7 +26,7 @@ const Contact = () => {
                 </div>
                 <h3 className="font-semibold text-lg mb-2">Sales Inquiries</h3>
                 <p className="text-gray-600 mb-2">Interested in our products?</p>
-                <p className="text-soundblue-600">sales@voicewave.com</p>
+                <p className="text-soundblue-600">sales@serviqai.com</p>
               </div>
               
               <div className="bg-gray-50 p-6 rounded-lg flex flex-col items-center text-center">
@@ -44,7 +44,7 @@ const Contact = () => {
                 </div>
                 <h3 className="font-semibold text-lg mb-2">Support</h3>
                 <p className="text-gray-600 mb-2">Need technical help?</p>
-                <p className="text-soundblue-600">support@voicewave.com</p>
+                <p className="text-soundblue-600">support@serviqai.com</p>
               </div>
             </div>
 
