@@ -38,6 +38,12 @@ import CustomDomainCreation from "./pages/developers/documentation/CustomDomainC
 import PerformanceOptimization from "./pages/developers/documentation/PerformanceOptimization";
 import SecurityBestPractices from "./pages/developers/documentation/SecurityBestPractices";
 
+// New documentation pages
+import VoiceAIDocs from "./pages/developers/documentation/VoiceAIDocs";
+import VoiceChatDocs from "./pages/developers/documentation/VoiceChatDocs";
+import VoiceSearchDocs from "./pages/developers/documentation/VoiceSearchDocs";
+import HoundifyPlatformDocs from "./pages/developers/documentation/HoundifyPlatformDocs";
+
 // Company pages
 import AboutUs from "./pages/company/AboutUs";
 import Careers from "./pages/company/Careers";
@@ -86,6 +92,12 @@ const App = () => (
           <Route path="/developers/documentation/custom-domain-creation" element={<CustomDomainCreation />} />
           <Route path="/developers/documentation/performance-optimization" element={<PerformanceOptimization />} />
           <Route path="/developers/documentation/security-best-practices" element={<SecurityBestPractices />} />
+          
+          {/* New documentation pages */}
+          <Route path="/developers/documentation/voice-ai-docs" element={<VoiceAIDocs />} />
+          <Route path="/developers/documentation/voice-chat-docs" element={<VoiceChatDocs />} />
+          <Route path="/developers/documentation/voice-search-docs" element={<VoiceSearchDocs />} />
+          <Route path="/developers/documentation/houndify-platform-docs" element={<HoundifyPlatformDocs />} />
           
           {/* Company pages */}
           <Route path="/company/about-us" element={<AboutUs />} />

@@ -104,19 +104,19 @@ const Documentation = () => {
             <div className="bg-gray-50 p-6 rounded-lg mb-8">
               <h2 className="text-2xl font-semibold mb-4">Explore By Product</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Link to="/developers/documentation" className="block p-4 border rounded-lg hover:bg-white hover:shadow-md transition-all">
+                <Link to="/developers/documentation/voice-ai-docs" className="block p-4 border rounded-lg hover:bg-white hover:shadow-md transition-all">
                   <h3 className="text-lg font-semibold mb-2 text-soundblue-500">Voice AI Docs</h3>
                   <p className="text-gray-600">Documentation for our core voice recognition and natural language understanding.</p>
                 </Link>
-                <Link to="/developers/documentation" className="block p-4 border rounded-lg hover:bg-white hover:shadow-md transition-all">
+                <Link to="/developers/documentation/voice-chat-docs" className="block p-4 border rounded-lg hover:bg-white hover:shadow-md transition-all">
                   <h3 className="text-lg font-semibold mb-2 text-soundblue-500">Voice Chat Docs</h3>
                   <p className="text-gray-600">Implementation guides for conversational voice interfaces.</p>
                 </Link>
-                <Link to="/developers/documentation" className="block p-4 border rounded-lg hover:bg-white hover:shadow-md transition-all">
+                <Link to="/developers/documentation/voice-search-docs" className="block p-4 border rounded-lg hover:bg-white hover:shadow-md transition-all">
                   <h3 className="text-lg font-semibold mb-2 text-soundblue-500">Voice Search Docs</h3>
                   <p className="text-gray-600">Learn how to integrate voice search capabilities into your applications.</p>
                 </Link>
-                <Link to="/developers/documentation" className="block p-4 border rounded-lg hover:bg-white hover:shadow-md transition-all">
+                <Link to="/developers/documentation/houndify-platform-docs" className="block p-4 border rounded-lg hover:bg-white hover:shadow-md transition-all">
                   <h3 className="text-lg font-semibold mb-2 text-soundblue-500">Houndify Platform Docs</h3>
                   <p className="text-gray-600">Complete documentation for our developer platform and tools.</p>
                 </Link>
