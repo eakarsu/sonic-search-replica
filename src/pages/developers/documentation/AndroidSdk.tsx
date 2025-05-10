@@ -4,6 +4,24 @@ import Footer from "@/components/layout/Footer";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import DocSection from "@/components/documentation/DocSection";
+import {
+  KotlinInitializeSnippet,
+  JavaInitializeSnippet,
+  KotlinVoiceRecognitionSnippet
+} from "@/components/documentation/android/SetupCodeSnippets";
+import {
+  AssistantIntegrationSnippet,
+  VoiceCommandsSnippet,
+  TextToSpeechSnippet,
+  PermissionsSnippet,
+  RequestPermissionsSnippet,
+  OfflineSupportSnippet
+} from "@/components/documentation/android/AdvancedCodeSnippets";
+import {
+  ProjectGradleSnippet,
+  AppGradleSnippet
+} from "@/components/documentation/android/GradleSnippets";
 
 const AndroidSdk = () => {
   return (
@@ -29,288 +47,87 @@ const AndroidSdk = () => {
                 conversational interfaces to your Android applications.
               </p>
               
-              <h3>Requirements</h3>
-              <ul>
-                <li>Android API level 21 (Android 5.0) or higher</li>
-                <li>Java 8 or Kotlin 1.5+</li>
-                <li>ServiqAI developer account and API key</li>
-              </ul>
+              <DocSection title="Requirements">
+                <ul>
+                  <li>Android API level 21 (Android 5.0) or higher</li>
+                  <li>Java 8 or Kotlin 1.5+</li>
+                  <li>ServiqAI developer account and API key</li>
+                </ul>
+              </DocSection>
 
-              <h3>Installation</h3>
-              <p>
-                Add the SDK to your project using Gradle.
-              </p>
-              
-              <h4>In your project-level build.gradle:</h4>
-              <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>{`allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        maven { url "https://jitpack.io" } // Add this line
-    }
-}`}</code>
-              </pre>
-              
-              <h4>In your app-level build.gradle:</h4>
-              <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>{`dependencies {
-    implementation 'com.serviqai:voice-sdk:1.0.0'
-}`}</code>
-              </pre>
+              <DocSection title="Installation">
+                <p>
+                  Add the SDK to your project using Gradle.
+                </p>
+                
+                <h4>In your project-level build.gradle:</h4>
+                <ProjectGradleSnippet />
+                
+                <h4>In your app-level build.gradle:</h4>
+                <AppGradleSnippet />
+              </DocSection>
 
-              <h3>Setup and Configuration</h3>
-              <p>
-                Initialize the SDK in your Application class:
-              </p>
-              
-              <h4>Kotlin</h4>
-              <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>{`import com.serviqai.voice.ServiqAI
-                  
-class MyApplication : Application() {
-    override fun onCreate() {
-        super.onCreate()
-        
-        ServiqAI.initialize(
-            context = this,
-            apiKey = "YOUR_API_KEY"
-        )
-        
-        // Optional configuration
-        ServiqAI.setLanguage("en-US")
-        ServiqAI.setDebugLogging(true)
-    }
-}`}</code>
-              </pre>
-              
-              <h4>Java</h4>
-              <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>{`import com.serviqai.voice.ServiqAI;
-                  
-public class MyApplication extends Application {
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        
-        ServiqAI.initialize(
-            this,
-            "YOUR_API_KEY"
-        );
-        
-        // Optional configuration
-        ServiqAI.setLanguage("en-US");
-        ServiqAI.setDebugLogging(true);
-    }
-}`}</code>
-              </pre>
+              <DocSection title="Setup and Configuration">
+                <p>
+                  Initialize the SDK in your Application class:
+                </p>
+                
+                <h4>Kotlin</h4>
+                <KotlinInitializeSnippet />
+                
+                <h4>Java</h4>
+                <JavaInitializeSnippet />
+              </DocSection>
 
-              <h3>Basic Usage</h3>
-              <p>
-                Implement voice recognition in your Activity or Fragment:
-              </p>
-              
-              <h4>Kotlin</h4>
-              <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>{`import com.serviqai.voice.VoiceRecognizer
-                  
-class MainActivity : AppCompatActivity() {
+              <DocSection title="Basic Usage">
+                <p>
+                  Implement voice recognition in your Activity or Fragment:
+                </p>
+                
+                <h4>Kotlin</h4>
+                <KotlinVoiceRecognitionSnippet />
+              </DocSection>
 
-    private lateinit var recognizer: VoiceRecognizer
-    
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        
-        recognizer = ServiqAI.createRecognizer()
-        
-        findViewById<Button>(R.id.btnStartListening).setOnClickListener {
-            startListening()
-        }
-        
-        findViewById<Button>(R.id.btnStopListening).setOnClickListener {
-            recognizer.stopListening()
-        }
-    }
-    
-    private fun startListening() {
-        recognizer.startListening(object : VoiceRecognizer.Callback {
-            override fun onResult(transcript: String) {
-                // Handle the recognized text
-                Log.d("VoiceDemo", "User said: $transcript")
-            }
-            
-            override fun onPartialResult(partialTranscript: String) {
-                // Handle partial recognition results
-            }
-            
-            override fun onError(errorMessage: VoiceRecognizerError) {
-                // Handle errors
-                Log.e("VoiceDemo", "Error: \${errorMessage.message}")
-            }
-        })
-    }
-}`}</code>
-              </pre>
+              <DocSection title="Voice Assistant Integration">
+                <p>
+                  For a complete voice assistant experience:
+                </p>
+                <AssistantIntegrationSnippet />
+              </DocSection>
 
-              <h3>Voice Assistant Integration</h3>
-              <p>
-                For a complete voice assistant experience:
-              </p>
-              <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>{`val assistant = ServiqAI.createAssistant()
-                  
-assistant.startConversation(object : AssistantCallback {
-    override fun onStateChanged(state: AssistantState) {
-        when (state) {
-            is AssistantState.Listening -> updateUI(isListening = true)
-            is AssistantState.Processing -> updateUI(isProcessing = true)
-            is AssistantState.Speaking -> {
-                updateUI(isSpeaking = true)
-                textView.text = state.text
-            }
-            is AssistantState.Idle -> updateUI(isIdle = true)
-        }
-    }
-    
-    override fun onError(errorObj: AssistantError) {
-        Log.e("Assistant", "Error: \${errorObj.message}")
-        showErrorMessage(errorObj.message)
-    }
-})
-                  
-// Later, to stop the conversation
-assistant.stopConversation()`}</code>
-              </pre>
+              <DocSection title="Custom Voice Commands">
+                <p>
+                  Define custom voice commands for your app:
+                </p>
+                <VoiceCommandsSnippet />
+              </DocSection>
 
-              <h3>Custom Voice Commands</h3>
-              <p>
-                Define custom voice commands for your app:
-              </p>
-              <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>{`val commandHandler = ServiqAI.createCommandHandler()
-                  
-// Add commands
-commandHandler.addCommand("open settings") {
-    openSettings()
-}
-                  
-commandHandler.addCommand("show profile for {name}") { params ->
-    val name = params["name"]
-    if (name != null) {
-        showProfile(name)
-    }
-}
-                  
-// Start listening for commands
-commandHandler.startListening()`}</code>
-              </pre>
+              <DocSection title="Text-to-Speech">
+                <p>
+                  Generate spoken responses:
+                </p>
+                <TextToSpeechSnippet />
+              </DocSection>
 
-              <h3>Text-to-Speech</h3>
-              <p>
-                Generate spoken responses:
-              </p>
-              <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>{`val tts = ServiqAI.createSpeechSynthesizer()
-                  
-tts.speak("Hello, welcome to the app!") { err ->
-    err?.let {
-        Log.e("TTS", "Error: \${err.message}")
-    }
-}
-                  
-// With custom voice and options
-val options = TTSOptions(
-    voice = "michael",
-    speed = 1.0f,
-    pitch = 1.0f
-)
-                  
-tts.speak("How can I help you today?", options)`}</code>
-              </pre>
+              <DocSection title="Permissions">
+                <p>
+                  The SDK will help you request the necessary permissions, but you should also add them to your 
+                  AndroidManifest.xml:
+                </p>
+                <PermissionsSnippet />
+                
+                <p>
+                  Request the permissions in your Activity:
+                </p>
+                <RequestPermissionsSnippet />
+              </DocSection>
 
-              <h3>Permissions</h3>
-              <p>
-                The SDK will help you request the necessary permissions, but you should also add them to your 
-                AndroidManifest.xml:
-              </p>
-              <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>{`<uses-permission android:name="android.permission.INTERNET" />
-<uses-permission android:name="android.permission.RECORD_AUDIO" />`}</code>
-              </pre>
-              
-              <p>
-                Request the permissions in your Activity:
-              </p>
-              <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>{`private fun checkPermissions() {
-    if (ContextCompat.checkSelfPermission(
-            this,
-            Manifest.permission.RECORD_AUDIO
-        ) != PackageManager.PERMISSION_GRANTED
-    ) {
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(Manifest.permission.RECORD_AUDIO),
-            REQUEST_RECORD_AUDIO
-        )
-    } else {
-        // Permissions already granted, proceed with voice recognition
-        startListening()
-    }
-}
-                  
-override fun onRequestPermissionsResult(
-    requestCode: Int,
-    permissions: Array<String>,
-    grantResults: IntArray
-) {
-    super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    if (requestCode == REQUEST_RECORD_AUDIO && grantResults.isNotEmpty() &&
-        grantResults[0] == PackageManager.PERMISSION_GRANTED
-    ) {
-        // Permission granted, proceed with voice recognition
-        startListening()
-    } else {
-        // Permission denied, show a message to the user
-        showPermissionDeniedMessage()
-    }
-}`}</code>
-              </pre>
-
-              <h3>Offline Support</h3>
-              <p>
-                Enable offline voice recognition:
-              </p>
-              <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>{`// Download the language model
-ServiqAI.downloadOfflineModel(
-    language = "en-US",
-    callback = object : DownloadCallback {
-        override fun onSuccess() {
-            Log.d("Offline", "Model downloaded successfully")
-            enableOfflineMode()
-        }
-        
-        override fun onProgress(progress: Float) {
-            progressBar.progress = (progress * 100).toInt()
-        }
-        
-        override fun onError(errorObj: Exception) {
-            Log.e("Offline", "Download failed: \${errorObj.message}")
-        }
-    }
-)
-                  
-// Enable offline mode
-private fun enableOfflineMode() {
-    val options = RecognizerOptions.Builder()
-        .preferOffline(true)
-        .build()
-    
-    recognizer.startListening(options)
-}`}</code>
-              </pre>
+              <DocSection title="Offline Support">
+                <p>
+                  Enable offline voice recognition:
+                </p>
+                <OfflineSupportSnippet />
+              </DocSection>
             </div>
 
             <div className="mt-12 border-t pt-6">
