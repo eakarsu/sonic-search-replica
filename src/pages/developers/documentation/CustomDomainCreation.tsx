@@ -58,25 +58,25 @@ const CustomDomainCreation = () => {
                 Extract important terminology from your domain:
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>
-                  // Example for a healthcare domain
-                  const medicalTerms = [
-                      'hypertension',
-                      'myocardial infarction',
-                      'arrhythmia',
-                      'tachycardia',
-                      'echocardiogram',
-                      // ... more medical terms
-                  ];
-                  
-                  // Common phrases in the domain
-                  const medicalPhrases = [
-                      { text: 'check my blood pressure', weight: 1.5 },
-                      { text: 'schedule a cardiology appointment', weight: 1.3 },
-                      { text: 'refill my prescription', weight: 1.4 },
-                      // ... more phrases with weights
-                  ];
-                </code>
+                <code>{`
+// Example for a healthcare domain
+const medicalTerms = [
+    'hypertension',
+    'myocardial infarction',
+    'arrhythmia',
+    'tachycardia',
+    'echocardiogram',
+    // ... more medical terms
+];
+
+// Common phrases in the domain
+const medicalPhrases = [
+    { text: 'check my blood pressure', weight: 1.5 },
+    { text: 'schedule a cardiology appointment', weight: 1.3 },
+    { text: 'refill my prescription', weight: 1.4 },
+    // ... more phrases with weights
+];
+                `}</code>
               </pre>
 
               <h4>3. Create a Domain Definition</h4>
@@ -84,53 +84,53 @@ const CustomDomainCreation = () => {
                 Use the ServiqAI Developer Console or API to create your domain:
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>
-                  // Using the API
-                  const domainDefinition = {
-                      name: 'healthcare_assistant',
-                      description: 'Domain for healthcare voice interactions',
-                      language: 'en-US',
-                      terms: medicalTerms,
-                      phrases: medicalPhrases,
-                      intents: [
-                          {
-                              name: 'check_vitals',
-                              examples: [
-                                  'check my blood pressure',
-                                  'what\'s my heart rate',
-                                  'monitor my oxygen levels'
-                              ]
-                          },
-                          {
-                              name: 'schedule_appointment',
-                              examples: [
-                                  'schedule a doctor appointment',
-                                  'book a visit with my cardiologist',
-                                  'I need to see a doctor next week'
-                              ]
-                          }
-                      ]
-                  };
-                  
-                  // Send the domain definition to the API
-                  fetch('https://api.serviqai.com/v1/domains', {
-                      method: 'POST',
-                      headers: {
-                          'Content-Type': 'application/json',
-                          'Authorization': 'Bearer YOUR_API_KEY'
-                      },
-                      body: JSON.stringify(domainDefinition)
-                  })
-                  .then(response => response.json())
-                  .then(data => {
-                      console.log('Domain created:', data);
-                      const domainId = data.id;
-                      // Store the domain ID for later use
-                  })
-                  .catch(error => {
-                      console.error('Error creating domain:', error);
-                  });
-                </code>
+                <code>{`
+// Using the API
+const domainDefinition = {
+    name: 'healthcare_assistant',
+    description: 'Domain for healthcare voice interactions',
+    language: 'en-US',
+    terms: medicalTerms,
+    phrases: medicalPhrases,
+    intents: [
+        {
+            name: 'check_vitals',
+            examples: [
+                'check my blood pressure',
+                'what\\'s my heart rate',
+                'monitor my oxygen levels'
+            ]
+        },
+        {
+            name: 'schedule_appointment',
+            examples: [
+                'schedule a doctor appointment',
+                'book a visit with my cardiologist',
+                'I need to see a doctor next week'
+            ]
+        }
+    ]
+};
+
+// Send the domain definition to the API
+fetch('https://api.serviqai.com/v1/domains', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer YOUR_API_KEY'
+    },
+    body: JSON.stringify(domainDefinition)
+})
+.then(response => response.json())
+.then(data => {
+    console.log('Domain created:', data);
+    const domainId = data.id;
+    // Store the domain ID for later use
+})
+.catch(error => {
+    console.error('Error creating domain:', error);
+});
+                `}</code>
               </pre>
 
               <h4>4. Train Your Domain Model</h4>
@@ -138,25 +138,25 @@ const CustomDomainCreation = () => {
                 After creating the domain definition, train the model:
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>
-                  // Trigger training for the domain
-                  fetch(`https://api.serviqai.com/v1/domains/${domainId}/train`, {
-                      method: 'POST',
-                      headers: {
-                          'Content-Type': 'application/json',
-                          'Authorization': 'Bearer YOUR_API_KEY'
-                      }
-                  })
-                  .then(response => response.json())
-                  .then(data => {
-                      console.log('Training status:', data);
-                      // data.status will be "training"
-                      // data.estimatedCompletionTime provides an estimate
-                  })
-                  .catch(error => {
-                      console.error('Error starting training:', error);
-                  });
-                </code>
+                <code>{`
+// Trigger training for the domain
+fetch(\`https://api.serviqai.com/v1/domains/\${domainId}/train\`, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer YOUR_API_KEY'
+    }
+})
+.then(response => response.json())
+.then(data => {
+    console.log('Training status:', data);
+    // data.status will be "training"
+    // data.estimatedCompletionTime provides an estimate
+})
+.catch(error => {
+    console.error('Error starting training:', error);
+});
+                `}</code>
               </pre>
 
               <h4>5. Monitor Training Progress</h4>
@@ -164,23 +164,23 @@ const CustomDomainCreation = () => {
                 Check the training status:
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>
-                  // Check training status
-                  fetch(`https://api.serviqai.com/v1/domains/${domainId}`, {
-                      method: 'GET',
-                      headers: {
-                          'Authorization': 'Bearer YOUR_API_KEY'
-                      }
-                  })
-                  .then(response => response.json())
-                  .then(data => {
-                      console.log('Domain status:', data.status);
-                      // Status will be one of: "training", "ready", "failed"
-                  })
-                  .catch(error => {
-                      console.error('Error checking status:', error);
-                  });
-                </code>
+                <code>{`
+// Check training status
+fetch(\`https://api.serviqai.com/v1/domains/\${domainId}\`, {
+    method: 'GET',
+    headers: {
+        'Authorization': 'Bearer YOUR_API_KEY'
+    }
+})
+.then(response => response.json())
+.then(data => {
+    console.log('Domain status:', data.status);
+    // Status will be one of: "training", "ready", "failed"
+})
+.catch(error => {
+    console.error('Error checking status:', error);
+});
+                `}</code>
               </pre>
 
               <h4>6. Test Your Custom Domain</h4>
@@ -188,20 +188,20 @@ const CustomDomainCreation = () => {
                 Once training is complete, test the domain:
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>
-                  // Test recognition with your domain
-                  const recognizer = ServiqAI.createRecognizer();
-                  
-                  recognizer.start({
-                      domain: 'healthcare_assistant', // Your domain name
-                      onResult: (result) => {
-                          console.log('Recognition result:', result);
-                      },
-                      onError: (error) => {
-                          console.error('Recognition error:', error);
-                      }
-                  });
-                </code>
+                <code>{`
+// Test recognition with your domain
+const recognizer = ServiqAI.createRecognizer();
+
+recognizer.start({
+    domain: 'healthcare_assistant', // Your domain name
+    onResult: (result) => {
+        console.log('Recognition result:', result);
+    },
+    onError: (error) => {
+        console.error('Recognition error:', error);
+    }
+});
+                `}</code>
               </pre>
 
               <h4>7. Evaluate and Iterate</h4>
@@ -224,25 +224,25 @@ const CustomDomainCreation = () => {
                 Improve accuracy with contextual hints:
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>
-                  // Use context to improve recognition
-                  recognizer.start({
-                      domain: 'healthcare_assistant',
-                      context: {
-                          // Current app section/feature
-                          currentScreen: 'medication_tracker',
-                          
-                          // Recently mentioned entities
-                          recentMedications: ['lisinopril', 'metformin', 'atorvastatin'],
-                          
-                          // User preferences/profile info
-                          userSpecialist: 'cardiologist'
-                      },
-                      onResult: (result) => {
-                          console.log('Recognition result:', result);
-                      }
-                  });
-                </code>
+                <code>{`
+// Use context to improve recognition
+recognizer.start({
+    domain: 'healthcare_assistant',
+    context: {
+        // Current app section/feature
+        currentScreen: 'medication_tracker',
+        
+        // Recently mentioned entities
+        recentMedications: ['lisinopril', 'metformin', 'atorvastatin'],
+        
+        // User preferences/profile info
+        userSpecialist: 'cardiologist'
+    },
+    onResult: (result) => {
+        console.log('Recognition result:', result);
+    }
+});
+                `}</code>
               </pre>
 
               <h4>Dynamic Domain Adaptation</h4>
@@ -250,24 +250,24 @@ const CustomDomainCreation = () => {
                 Update your domain on-the-fly:
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>
-                  // Add new terms dynamically
-                  ServiqAI.addDynamicTerms('healthcare_assistant', [
-                      'new_medication_name',
-                      'new_procedure_name'
-                  ]);
-                  
-                  // Add user-specific terms
-                  function addPatientMedications(patientMeds) {
-                      ServiqAI.addDynamicTerms('healthcare_assistant', patientMeds);
-                  }
-                  
-                  // Add new phrases with weights
-                  ServiqAI.addDynamicPhrases('healthcare_assistant', [
-                      { text: 'check my glucose levels', weight: 1.5 },
-                      { text: 'log my insulin dose', weight: 1.4 }
-                  ]);
-                </code>
+                <code>{`
+// Add new terms dynamically
+ServiqAI.addDynamicTerms('healthcare_assistant', [
+    'new_medication_name',
+    'new_procedure_name'
+]);
+
+// Add user-specific terms
+function addPatientMedications(patientMeds) {
+    ServiqAI.addDynamicTerms('healthcare_assistant', patientMeds);
+}
+
+// Add new phrases with weights
+ServiqAI.addDynamicPhrases('healthcare_assistant', [
+    { text: 'check my glucose levels', weight: 1.5 },
+    { text: 'log my insulin dose', weight: 1.4 }
+]);
+                `}</code>
               </pre>
 
               <h4>Multi-Domain Recognition</h4>
@@ -275,21 +275,21 @@ const CustomDomainCreation = () => {
                 Use multiple domains simultaneously for complex applications:
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>
-                  // Configure multiple domains
-                  recognizer.start({
-                      domains: [
-                          'healthcare_assistant', // Primary domain
-                          'general',              // Fallback for general queries
-                          'appointment_scheduler' // Another specialized domain
-                      ],
-                      domainWeights: [1.5, 1.0, 1.2], // Optional weights
-                      onResult: (result) => {
-                          console.log('Recognition result:', result);
-                          console.log('Matched domain:', result.domain);
-                      }
-                  });
-                </code>
+                <code>{`
+// Configure multiple domains
+recognizer.start({
+    domains: [
+        'healthcare_assistant', // Primary domain
+        'general',              // Fallback for general queries
+        'appointment_scheduler' // Another specialized domain
+    ],
+    domainWeights: [1.5, 1.0, 1.2], // Optional weights
+    onResult: (result) => {
+        console.log('Recognition result:', result);
+        console.log('Matched domain:', result.domain);
+    }
+});
+                `}</code>
               </pre>
 
               <h3>Best Practices</h3>

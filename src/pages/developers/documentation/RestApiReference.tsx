@@ -35,164 +35,164 @@ const RestApiReference = () => {
                 header:
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>
-                  Authorization: Bearer YOUR_API_KEY
-                </code>
+                <code>{`
+Authorization: Bearer YOUR_API_KEY
+                `}</code>
               </pre>
 
               <h3>Base URL</h3>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>
-                  https://api.serviqai.com/v1
-                </code>
+                <code>{`
+https://api.serviqai.com/v1
+                `}</code>
               </pre>
 
               <h3>Speech Recognition API</h3>
               
               <h4>Recognize Audio</h4>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>
-                  POST /recognize
-                  
-                  // Request Body (multipart/form-data)
-                  {
-                    "audio": [binary audio data],
-                    "language": "en-US", // optional
-                    "model": "general", // optional
-                    "domain": "default" // optional
-                  }
-                  
-                  // Response
-                  {
-                    "results": [
-                      {
-                        "text": "What's the weather like today?",
-                        "confidence": 0.98
-                      }
-                    ]
-                  }
-                </code>
+                <code>{`
+POST /recognize
+
+// Request Body (multipart/form-data)
+{
+  "audio": [binary audio data],
+  "language": "en-US", // optional
+  "model": "general", // optional
+  "domain": "default" // optional
+}
+
+// Response
+{
+  "results": [
+    {
+      "text": "What's the weather like today?",
+      "confidence": 0.98
+    }
+  ]
+}
+                `}</code>
               </pre>
 
               <h4>Streaming Recognition</h4>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>
-                  WSS /recognize/stream
-                  
-                  // Initial message from client
-                  {
-                    "config": {
-                      "language": "en-US",
-                      "model": "general"
-                    }
-                  }
-                  
-                  // Subsequent messages contain binary audio data
-                  
-                  // Server responses
-                  {
-                    "type": "partial",
-                    "text": "What's the weath"
-                  }
-                  
-                  {
-                    "type": "final",
-                    "text": "What's the weather like today?",
-                    "confidence": 0.98
-                  }
-                </code>
+                <code>{`
+WSS /recognize/stream
+
+// Initial message from client
+{
+  "config": {
+    "language": "en-US",
+    "model": "general"
+  }
+}
+
+// Subsequent messages contain binary audio data
+
+// Server responses
+{
+  "type": "partial",
+  "text": "What's the weath"
+}
+
+{
+  "type": "final",
+  "text": "What's the weather like today?",
+  "confidence": 0.98
+}
+                `}</code>
               </pre>
 
               <h3>Natural Language Understanding API</h3>
               
               <h4>Parse Intent</h4>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>
-                  POST /nlu/parse
-                  
-                  // Request Body
-                  {
-                    "text": "What's the weather like in San Francisco tomorrow?",
-                    "domain": "weather" // optional
-                  }
-                  
-                  // Response
-                  {
-                    "intent": "get_weather_forecast",
-                    "confidence": 0.96,
-                    "entities": [
-                      {
-                        "type": "location",
-                        "value": "San Francisco",
-                        "confidence": 0.99
-                      },
-                      {
-                        "type": "datetime",
-                        "value": "2025-05-11T00:00:00Z",
-                        "confidence": 0.97
-                      }
-                    ]
-                  }
-                </code>
+                <code>{`
+POST /nlu/parse
+
+// Request Body
+{
+  "text": "What's the weather like in San Francisco tomorrow?",
+  "domain": "weather" // optional
+}
+
+// Response
+{
+  "intent": "get_weather_forecast",
+  "confidence": 0.96,
+  "entities": [
+    {
+      "type": "location",
+      "value": "San Francisco",
+      "confidence": 0.99
+    },
+    {
+      "type": "datetime",
+      "value": "2025-05-11T00:00:00Z",
+      "confidence": 0.97
+    }
+  ]
+}
+                `}</code>
               </pre>
 
               <h3>Text-to-Speech API</h3>
               
               <h4>Generate Speech</h4>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>
-                  POST /tts/generate
-                  
-                  // Request Body
-                  {
-                    "text": "Hello, how can I help you today?",
-                    "voice": "emma", // optional
-                    "language": "en-US", // optional
-                    "speed": 1.0, // optional
-                    "format": "mp3" // optional
-                  }
-                  
-                  // Response: Binary audio data with appropriate Content-Type header
-                </code>
+                <code>{`
+POST /tts/generate
+
+// Request Body
+{
+  "text": "Hello, how can I help you today?",
+  "voice": "emma", // optional
+  "language": "en-US", // optional
+  "speed": 1.0, // optional
+  "format": "mp3" // optional
+}
+
+// Response: Binary audio data with appropriate Content-Type header
+                `}</code>
               </pre>
 
               <h3>Voice Assistant API</h3>
               
               <h4>Process Conversation Turn</h4>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>
-                  POST /assistant/converse
-                  
-                  // Request Body
-                  {
-                    "text": "What's the weather like in San Francisco tomorrow?",
-                    "session_id": "user123-session456", // to maintain context
-                    "context": { // optional custom context
-                      "user_location": "San Jose"
-                    }
-                  }
-                  
-                  // Response
-                  {
-                    "response": {
-                      "text": "Tomorrow in San Francisco, expect partly cloudy skies with a high of 68°F and a low of 54°F.",
-                      "speech_url": "https://cdn.serviqai.com/tts/output123.mp3" // optional
-                    },
-                    "intent": "get_weather_forecast",
-                    "action": {
-                      "name": "display_weather",
-                      "data": {
-                        "location": "San Francisco",
-                        "forecast": {
-                          "date": "2025-05-11",
-                          "condition": "partly_cloudy",
-                          "high_temp": 68,
-                          "low_temp": 54
-                        }
-                      }
-                    }
-                  }
-                </code>
+                <code>{`
+POST /assistant/converse
+
+// Request Body
+{
+  "text": "What's the weather like in San Francisco tomorrow?",
+  "session_id": "user123-session456", // to maintain context
+  "context": { // optional custom context
+    "user_location": "San Jose"
+  }
+}
+
+// Response
+{
+  "response": {
+    "text": "Tomorrow in San Francisco, expect partly cloudy skies with a high of 68°F and a low of 54°F.",
+    "speech_url": "https://cdn.serviqai.com/tts/output123.mp3" // optional
+  },
+  "intent": "get_weather_forecast",
+  "action": {
+    "name": "display_weather",
+    "data": {
+      "location": "San Francisco",
+      "forecast": {
+        "date": "2025-05-11",
+        "condition": "partly_cloudy",
+        "high_temp": 68,
+        "low_temp": 54
+      }
+    }
+  }
+}
+                `}</code>
               </pre>
 
               <h3>Rate Limits</h3>
@@ -214,16 +214,16 @@ const RestApiReference = () => {
                 The API uses standard HTTP status codes and returns error details in the response body:
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>
-                  // Example error response
-                  {
-                    "error": {
-                      "code": "invalid_audio_format",
-                      "message": "The provided audio file format is not supported.",
-                      "details": "Supported formats: WAV, MP3, FLAC, OGG"
-                    }
-                  }
-                </code>
+                <code>{`
+// Example error response
+{
+  "error": {
+    "code": "invalid_audio_format",
+    "message": "The provided audio file format is not supported.",
+    "details": "Supported formats: WAV, MP3, FLAC, OGG"
+  }
+}
+                `}</code>
               </pre>
             </div>
 

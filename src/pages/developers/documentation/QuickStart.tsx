@@ -38,37 +38,37 @@ const QuickStart = () => {
               <h3>2. Install the SDK</h3>
               <p>Choose the SDK for your platform:</p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>
-                  {`# Web SDK
+                <code>{`
+# Web SDK
 npm install serviqai-voice-sdk
                   
 # iOS
 pod 'ServiqAIVoiceSDK'
                   
 # Android
-implementation 'com.serviqai:voice-sdk:1.0.0'`}
-                </code>
+implementation 'com.serviqai:voice-sdk:1.0.0'
+                `}</code>
               </pre>
 
               <h3>3. Initialize the SDK</h3>
               <p>Initialize the SDK with your API key:</p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>
-                  {`// JavaScript
+                <code>{`
+// JavaScript
 import ServiqAI from 'serviqai-voice-sdk';
                   
 ServiqAI.initialize({
   apiKey: 'YOUR_API_KEY',
   language: 'en-US'
-});`}
-                </code>
+});
+                `}</code>
               </pre>
 
               <h3>4. Create a Simple Voice Command</h3>
               <p>Add a voice command to your application:</p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>
-                  {`// JavaScript
+                <code>{`
+// JavaScript
 const voiceButton = document.getElementById('voice-button');
                   
 voiceButton.addEventListener('click', () => {
@@ -84,8 +84,8 @@ voiceButton.addEventListener('click', () => {
       console.error('Error:', error);
     }
   });
-});`}
-                </code>
+});
+                `}</code>
               </pre>
 
               <h3>5. Test Your Integration</h3>
