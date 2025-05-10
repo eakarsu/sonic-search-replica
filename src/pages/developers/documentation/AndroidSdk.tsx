@@ -153,9 +153,9 @@ class MainActivity : AppCompatActivity() {
                 // Handle partial recognition results
             }
             
-            override fun onError(error: VoiceRecognizerError) {
+            override fun onError(errorMsg: VoiceRecognizerError) {
                 // Handle errors
-                Log.e("VoiceDemo", "Error: ${error.message}")
+                Log.e("VoiceDemo", "Error: ${errorMsg.message}")
             }
         })
     }
@@ -184,9 +184,9 @@ assistant.startConversation(object : AssistantCallback {
         }
     }
     
-    override fun onError(error: AssistantError) {
-        Log.e("Assistant", "Error: ${error.message}")
-        showErrorMessage(error.message)
+    override fun onError(errorObj: AssistantError) {
+        Log.e("Assistant", "Error: ${errorObj.message}")
+        showErrorMessage(errorObj.message)
     }
 })
                   
@@ -228,9 +228,9 @@ commandHandler.startListening()`}
                 <code>
                   {`val tts = ServiqAI.createSpeechSynthesizer()
                   
-tts.speak("Hello, welcome to the app!") { error ->
-    error?.let {
-        Log.e("TTS", "Error: ${it.message}")
+tts.speak("Hello, welcome to the app!") { errorObj ->
+    errorObj?.let {
+        Log.e("TTS", "Error: \${errorObj.message}")
     }
 }
                   
@@ -317,8 +317,8 @@ ServiqAI.downloadOfflineModel(
             progressBar.progress = (progress * 100).toInt()
         }
         
-        override fun onError(error: Exception) {
-            Log.e("Offline", "Download failed: ${error.message}")
+        override fun onError(errorObj: Exception) {
+            Log.e("Offline", "Download failed: \${errorObj.message}")
         }
     }
 )
