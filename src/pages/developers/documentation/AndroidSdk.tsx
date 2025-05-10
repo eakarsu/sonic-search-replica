@@ -43,24 +43,20 @@ const AndroidSdk = () => {
               
               <h4>In your project-level build.gradle:</h4>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>
-                  {`allprojects {
+                <code>{`allprojects {
     repositories {
         google()
         mavenCentral()
         maven { url "https://jitpack.io" } // Add this line
     }
-}`}
-                </code>
+}`}</code>
               </pre>
               
               <h4>In your app-level build.gradle:</h4>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>
-                  {`dependencies {
+                <code>{`dependencies {
     implementation 'com.serviqai:voice-sdk:1.0.0'
-}`}
-                </code>
+}`}</code>
               </pre>
 
               <h3>Setup and Configuration</h3>
@@ -70,8 +66,7 @@ const AndroidSdk = () => {
               
               <h4>Kotlin</h4>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>
-                  {`import com.serviqai.voice.ServiqAI
+                <code>{`import com.serviqai.voice.ServiqAI
                   
 class MyApplication : Application() {
     override fun onCreate() {
@@ -86,14 +81,12 @@ class MyApplication : Application() {
         ServiqAI.setLanguage("en-US")
         ServiqAI.setDebugLogging(true)
     }
-}`}
-                </code>
+}`}</code>
               </pre>
               
               <h4>Java</h4>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>
-                  {`import com.serviqai.voice.ServiqAI;
+                <code>{`import com.serviqai.voice.ServiqAI;
                   
 public class MyApplication extends Application {
     @Override
@@ -109,8 +102,7 @@ public class MyApplication extends Application {
         ServiqAI.setLanguage("en-US");
         ServiqAI.setDebugLogging(true);
     }
-}`}
-                </code>
+}`}</code>
               </pre>
 
               <h3>Basic Usage</h3>
@@ -120,8 +112,7 @@ public class MyApplication extends Application {
               
               <h4>Kotlin</h4>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>
-                  {`import com.serviqai.voice.VoiceRecognizer
+                <code>{`import com.serviqai.voice.VoiceRecognizer
                   
 class MainActivity : AppCompatActivity() {
 
@@ -153,14 +144,13 @@ class MainActivity : AppCompatActivity() {
                 // Handle partial recognition results
             }
             
-            override fun onError(errorMsg: VoiceRecognizerError) {
+            override fun onError(error: VoiceRecognizerError) {
                 // Handle errors
-                Log.e("VoiceDemo", "Error: ${errorMsg.message}")
+                Log.e("VoiceDemo", "Error: ${error.message}")
             }
         })
     }
-}`}
-                </code>
+}`}</code>
               </pre>
 
               <h3>Voice Assistant Integration</h3>
@@ -168,8 +158,7 @@ class MainActivity : AppCompatActivity() {
                 For a complete voice assistant experience:
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>
-                  {`val assistant = ServiqAI.createAssistant()
+                <code>{`val assistant = ServiqAI.createAssistant()
                   
 assistant.startConversation(object : AssistantCallback {
     override fun onStateChanged(state: AssistantState) {
@@ -184,15 +173,14 @@ assistant.startConversation(object : AssistantCallback {
         }
     }
     
-    override fun onError(errorObj: AssistantError) {
-        Log.e("Assistant", "Error: ${errorObj.message}")
-        showErrorMessage(errorObj.message)
+    override fun onError(error: AssistantError) {
+        Log.e("Assistant", "Error: ${error.message}")
+        showErrorMessage(error.message)
     }
 })
                   
 // Later, to stop the conversation
-assistant.stopConversation()`}
-                </code>
+assistant.stopConversation()`}</code>
               </pre>
 
               <h3>Custom Voice Commands</h3>
@@ -200,8 +188,7 @@ assistant.stopConversation()`}
                 Define custom voice commands for your app:
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>
-                  {`val commandHandler = ServiqAI.createCommandHandler()
+                <code>{`val commandHandler = ServiqAI.createCommandHandler()
                   
 // Add commands
 commandHandler.addCommand("open settings") {
@@ -216,8 +203,7 @@ commandHandler.addCommand("show profile for {name}") { params ->
 }
                   
 // Start listening for commands
-commandHandler.startListening()`}
-                </code>
+commandHandler.startListening()`}</code>
               </pre>
 
               <h3>Text-to-Speech</h3>
@@ -225,12 +211,11 @@ commandHandler.startListening()`}
                 Generate spoken responses:
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>
-                  {`val tts = ServiqAI.createSpeechSynthesizer()
+                <code>{`val tts = ServiqAI.createSpeechSynthesizer()
                   
-tts.speak("Hello, welcome to the app!") { errorObj ->
-    errorObj?.let {
-        Log.e("TTS", "Error: \${errorObj.message}")
+tts.speak("Hello, welcome to the app!") { error ->
+    error?.let {
+        Log.e("TTS", "Error: \${it.message}")
     }
 }
                   
@@ -241,8 +226,7 @@ val options = TTSOptions(
     pitch = 1.0f
 )
                   
-tts.speak("How can I help you today?", options)`}
-                </code>
+tts.speak("How can I help you today?", options)`}</code>
               </pre>
 
               <h3>Permissions</h3>
@@ -251,18 +235,15 @@ tts.speak("How can I help you today?", options)`}
                 AndroidManifest.xml:
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>
-                  {`<uses-permission android:name="android.permission.INTERNET" />
-<uses-permission android:name="android.permission.RECORD_AUDIO" />`}
-                </code>
+                <code>{`<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.RECORD_AUDIO" />`}</code>
               </pre>
               
               <p>
                 Request the permissions in your Activity:
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>
-                  {`private fun checkPermissions() {
+                <code>{`private fun checkPermissions() {
     if (ContextCompat.checkSelfPermission(
             this,
             Manifest.permission.RECORD_AUDIO
@@ -294,8 +275,7 @@ override fun onRequestPermissionsResult(
         // Permission denied, show a message to the user
         showPermissionDeniedMessage()
     }
-}`}
-                </code>
+}`}</code>
               </pre>
 
               <h3>Offline Support</h3>
@@ -303,8 +283,7 @@ override fun onRequestPermissionsResult(
                 Enable offline voice recognition:
               </p>
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>
-                  {`// Download the language model
+                <code>{`// Download the language model
 ServiqAI.downloadOfflineModel(
     language = "en-US",
     callback = object : DownloadCallback {
@@ -317,8 +296,8 @@ ServiqAI.downloadOfflineModel(
             progressBar.progress = (progress * 100).toInt()
         }
         
-        override fun onError(errorObj: Exception) {
-            Log.e("Offline", "Download failed: \${errorObj.message}")
+        override fun onError(error: Exception) {
+            Log.e("Offline", "Download failed: \${error.message}")
         }
     }
 )
@@ -330,8 +309,7 @@ private fun enableOfflineMode() {
         .build()
     
     recognizer.startListening(options)
-}`}
-                </code>
+}`}</code>
               </pre>
             </div>
 
