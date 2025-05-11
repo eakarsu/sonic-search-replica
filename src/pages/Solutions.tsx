@@ -18,7 +18,7 @@ const Solutions = () => {
                 Voice AI solutions for next-generation vehicles, enhancing driver safety and convenience.
                 Our technology enables hands-free control of navigation, entertainment, and vehicle functions.
               </p>
-              <a href="#automotive" className="text-soundblue-500 font-semibold hover:underline">Learn more →</a>
+              <a href="/solutions/automotive" className="text-soundblue-500 font-semibold hover:underline">Learn more →</a>
             </div>
 
             <div className="bg-white rounded-lg shadow-lg p-6">
@@ -27,7 +27,7 @@ const Solutions = () => {
                 Connect and control all your smart devices with intuitive voice commands.
                 Transform your home with seamless voice integration across all connected devices.
               </p>
-              <a href="#iot" className="text-soundblue-500 font-semibold hover:underline">Learn more →</a>
+              <a href="/solutions/iot-smart-home" className="text-soundblue-500 font-semibold hover:underline">Learn more →</a>
             </div>
 
             <div className="bg-white rounded-lg shadow-lg p-6">
@@ -36,7 +36,7 @@ const Solutions = () => {
                 Enhance mobile experiences with voice technology that makes app interactions more natural and efficient.
                 Our SDK makes integration simple for developers.
               </p>
-              <a href="#mobile-apps" className="text-soundblue-500 font-semibold hover:underline">Learn more →</a>
+              <a href="/solutions/mobile-apps" className="text-soundblue-500 font-semibold hover:underline">Learn more →</a>
             </div>
 
             <div className="bg-white rounded-lg shadow-lg p-6">
@@ -45,7 +45,7 @@ const Solutions = () => {
                 Automated support with natural conversations that improve customer satisfaction while reducing costs.
                 Our AI-powered voice agents handle common inquiries with human-like understanding.
               </p>
-              <a href="#customer-service" className="text-soundblue-500 font-semibold hover:underline">Learn more →</a>
+              <a href="/solutions/customer-service" className="text-soundblue-500 font-semibold hover:underline">Learn more →</a>
             </div>
           </div>
         </main>

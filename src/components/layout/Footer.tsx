@@ -28,19 +28,19 @@ const footerSections: FooterSection[] = [
     links: [
       { title: "Automotive", href: "/solutions/automotive" },
       { title: "IoT & Smart Home", href: "/solutions/iot-smart-home" },
-      { title: "Mobile Apps", href: "/solutions#mobile-apps" },
-      { title: "Customer Service", href: "/solutions#customer-service" },
-      { title: "Enterprise", href: "#enterprise" },
+      { title: "Mobile Apps", href: "/solutions/mobile-apps" },
+      { title: "Customer Service", href: "/solutions/customer-service" },
+      { title: "Enterprise", href: "/solutions/enterprise" },
     ]
   },
   {
     title: "Developers",
     links: [
       { title: "Documentation", href: "/developers/documentation" },
-      { title: "SDKs", href: "/developers#sdks" },
-      { title: "API Access", href: "/developers#api-access" },
-      { title: "Community", href: "/developers#community" },
-      { title: "Support", href: "#support" },
+      { title: "SDKs", href: "/developers/documentation#sdks" },
+      { title: "API Access", href: "/developers/api-access" },
+      { title: "Community", href: "/developers/community" },
+      { title: "Support", href: "/developers/support" },
     ]
   },
   {

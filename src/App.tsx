@@ -22,9 +22,16 @@ import Houndify from "./pages/products/Houndify";
 // Solution pages
 import Automotive from "./pages/solutions/Automotive";
 import IoTSmartHome from "./pages/solutions/IoTSmartHome";
+import MobileApps from "./pages/solutions/MobileApps";
+import CustomerService from "./pages/solutions/CustomerService";
+import Enterprise from "./pages/solutions/Enterprise";
 
 // Developer pages
 import Documentation from "./pages/developers/documentation";
+import ApiAccess from "./pages/developers/ApiAccess";
+import Community from "./pages/developers/Community";
+import Support from "./pages/developers/Support";
+
 import PlatformOverview from "./pages/developers/documentation/PlatformOverview";
 import QuickStart from "./pages/developers/documentation/QuickStart";
 import AccountSetup from "./pages/developers/documentation/AccountSetup";
@@ -77,9 +84,16 @@ const App = () => (
           {/* Solution pages */}
           <Route path="/solutions/automotive" element={<Automotive />} />
           <Route path="/solutions/iot-smart-home" element={<IoTSmartHome />} />
+          <Route path="/solutions/mobile-apps" element={<MobileApps />} />
+          <Route path="/solutions/customer-service" element={<CustomerService />} />
+          <Route path="/solutions/enterprise" element={<Enterprise />} />
           
           {/* Developer pages */}
           <Route path="/developers/documentation" element={<Documentation />} />
+          <Route path="/developers/api-access" element={<ApiAccess />} />
+          <Route path="/developers/community" element={<Community />} />
+          <Route path="/developers/support" element={<Support />} />
+          
           <Route path="/developers/documentation/platform-overview" element={<PlatformOverview />} />
           <Route path="/developers/documentation/quick-start" element={<QuickStart />} />
           <Route path="/developers/documentation/account-setup" element={<AccountSetup />} />
