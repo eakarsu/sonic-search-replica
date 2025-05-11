@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import { Facebook, Twitter, Instagram, Linkedin, Youtube } from "lucide-react";
 
@@ -20,7 +19,7 @@ const footerSections: FooterSection[] = [
       { title: "Voice Chat", href: "/products/voice-chat" },
       { title: "Voice Search", href: "/products/voice-search" },
       { title: "Houndify", href: "/products/houndify" },
-      { title: "Pricing", href: "#pricing" },
+      { title: "Pricing", href: "/products/pricing" },
     ]
   },
   {
