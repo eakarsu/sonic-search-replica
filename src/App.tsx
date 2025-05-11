@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -18,6 +17,7 @@ import VoiceAI from "./pages/products/VoiceAI";
 import VoiceChat from "./pages/products/VoiceChat";
 import VoiceSearch from "./pages/products/VoiceSearch";
 import Houndify from "./pages/products/Houndify";
+import Pricing from "./pages/products/Pricing";
 
 // Solution pages
 import Automotive from "./pages/solutions/Automotive";
@@ -80,6 +80,7 @@ const App = () => (
           <Route path="/products/voice-chat" element={<VoiceChat />} />
           <Route path="/products/voice-search" element={<VoiceSearch />} />
           <Route path="/products/houndify" element={<Houndify />} />
+          <Route path="/products/pricing" element={<Pricing />} />
           
           {/* Solution pages */}
           <Route path="/solutions/automotive" element={<Automotive />} />
