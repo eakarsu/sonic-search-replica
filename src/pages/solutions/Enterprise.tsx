@@ -3,7 +3,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
-import { Users, Api } from "lucide-react";
+import { Users } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Enterprise = () => {

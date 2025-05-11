@@ -3,7 +3,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
-import { Api } from "lucide-react";
+import { Code2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import CodeBlock from "@/components/documentation/CodeBlock";
 
@@ -15,7 +15,7 @@ const ApiAccess = () => {
         <main className="container mx-auto py-12">
           <div className="max-w-5xl mx-auto">
             <div className="flex items-center gap-3 mb-4">
-              <Api className="h-8 w-8 text-soundblue-500" />
+              <Code2 className="h-8 w-8 text-soundblue-500" />
               <h1 className="text-4xl font-bold text-soundblue-500">API Access</h1>
             </div>
             <p className="text-xl text-gray-700 mb-8">
