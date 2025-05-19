@@ -1,8 +1,9 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Products from "./pages/Products";
 import Solutions from "./pages/Solutions";
@@ -65,66 +66,64 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/solutions" element={<Solutions />} />
-          <Route path="/developers" element={<Developers />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/get-started" element={<GetStarted />} />
-          
-          {/* Product pages */}
-          <Route path="/products/voice-ai" element={<VoiceAI />} />
-          <Route path="/products/voice-chat" element={<VoiceChat />} />
-          <Route path="/products/voice-search" element={<VoiceSearch />} />
-          <Route path="/products/houndify" element={<Houndify />} />
-          <Route path="/products/pricing" element={<Pricing />} />
-          
-          {/* Solution pages */}
-          <Route path="/solutions/automotive" element={<Automotive />} />
-          <Route path="/solutions/iot-smart-home" element={<IoTSmartHome />} />
-          <Route path="/solutions/mobile-apps" element={<MobileApps />} />
-          <Route path="/solutions/customer-service" element={<CustomerService />} />
-          <Route path="/solutions/enterprise" element={<Enterprise />} />
-          
-          {/* Developer pages */}
-          <Route path="/developers/documentation" element={<Documentation />} />
-          <Route path="/developers/api-access" element={<ApiAccess />} />
-          <Route path="/developers/community" element={<Community />} />
-          <Route path="/developers/support" element={<Support />} />
-          
-          <Route path="/developers/documentation/platform-overview" element={<PlatformOverview />} />
-          <Route path="/developers/documentation/quick-start" element={<QuickStart />} />
-          <Route path="/developers/documentation/account-setup" element={<AccountSetup />} />
-          <Route path="/developers/documentation/core-concepts" element={<CoreConcepts />} />
-          <Route path="/developers/documentation/rest-api-reference" element={<RestApiReference />} />
-          <Route path="/developers/documentation/ios-sdk" element={<IosSdk />} />
-          <Route path="/developers/documentation/android-sdk" element={<AndroidSdk />} />
-          <Route path="/developers/documentation/web-sdk" element={<WebSdk />} />
-          <Route path="/developers/documentation/voice-assistant-implementation" element={<VoiceAssistantImplementation />} />
-          <Route path="/developers/documentation/custom-domain-creation" element={<CustomDomainCreation />} />
-          <Route path="/developers/documentation/performance-optimization" element={<PerformanceOptimization />} />
-          <Route path="/developers/documentation/security-best-practices" element={<SecurityBestPractices />} />
-          
-          {/* New documentation pages */}
-          <Route path="/developers/documentation/voice-ai-docs" element={<VoiceAIDocs />} />
-          <Route path="/developers/documentation/voice-chat-docs" element={<VoiceChatDocs />} />
-          <Route path="/developers/documentation/voice-search-docs" element={<VoiceSearchDocs />} />
-          <Route path="/developers/documentation/houndify-platform-docs" element={<HoundifyPlatformDocs />} />
-          
-          {/* Company pages */}
-          <Route path="/company/about-us" element={<AboutUs />} />
-          <Route path="/company/careers" element={<Careers />} />
-          <Route path="/company/news" element={<News />} />
-          <Route path="/company/contact" element={<Contact />} />
-          <Route path="/company/partners" element={<Partners />} />
-          
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Index />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/solutions" element={<Solutions />} />
+        <Route path="/developers" element={<Developers />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/get-started" element={<GetStarted />} />
+        
+        {/* Product pages */}
+        <Route path="/products/voice-ai" element={<VoiceAI />} />
+        <Route path="/products/voice-chat" element={<VoiceChat />} />
+        <Route path="/products/voice-search" element={<VoiceSearch />} />
+        <Route path="/products/houndify" element={<Houndify />} />
+        <Route path="/products/pricing" element={<Pricing />} />
+        
+        {/* Solution pages */}
+        <Route path="/solutions/automotive" element={<Automotive />} />
+        <Route path="/solutions/iot-smart-home" element={<IoTSmartHome />} />
+        <Route path="/solutions/mobile-apps" element={<MobileApps />} />
+        <Route path="/solutions/customer-service" element={<CustomerService />} />
+        <Route path="/solutions/enterprise" element={<Enterprise />} />
+        
+        {/* Developer pages */}
+        <Route path="/developers/documentation" element={<Documentation />} />
+        <Route path="/developers/api-access" element={<ApiAccess />} />
+        <Route path="/developers/community" element={<Community />} />
+        <Route path="/developers/support" element={<Support />} />
+        
+        <Route path="/developers/documentation/platform-overview" element={<PlatformOverview />} />
+        <Route path="/developers/documentation/quick-start" element={<QuickStart />} />
+        <Route path="/developers/documentation/account-setup" element={<AccountSetup />} />
+        <Route path="/developers/documentation/core-concepts" element={<CoreConcepts />} />
+        <Route path="/developers/documentation/rest-api-reference" element={<RestApiReference />} />
+        <Route path="/developers/documentation/ios-sdk" element={<IosSdk />} />
+        <Route path="/developers/documentation/android-sdk" element={<AndroidSdk />} />
+        <Route path="/developers/documentation/web-sdk" element={<WebSdk />} />
+        <Route path="/developers/documentation/voice-assistant-implementation" element={<VoiceAssistantImplementation />} />
+        <Route path="/developers/documentation/custom-domain-creation" element={<CustomDomainCreation />} />
+        <Route path="/developers/documentation/performance-optimization" element={<PerformanceOptimization />} />
+        <Route path="/developers/documentation/security-best-practices" element={<SecurityBestPractices />} />
+        
+        {/* New documentation pages */}
+        <Route path="/developers/documentation/voice-ai-docs" element={<VoiceAIDocs />} />
+        <Route path="/developers/documentation/voice-chat-docs" element={<VoiceChatDocs />} />
+        <Route path="/developers/documentation/voice-search-docs" element={<VoiceSearchDocs />} />
+        <Route path="/developers/documentation/houndify-platform-docs" element={<HoundifyPlatformDocs />} />
+        
+        {/* Company pages */}
+        <Route path="/company/about-us" element={<AboutUs />} />
+        <Route path="/company/careers" element={<Careers />} />
+        <Route path="/company/news" element={<News />} />
+        <Route path="/company/contact" element={<Contact />} />
+        <Route path="/company/partners" element={<Partners />} />
+        
+        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </TooltipProvider>
   </QueryClientProvider>
 );
