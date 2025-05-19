@@ -28,6 +28,7 @@ const SignIn = () => {
     toast({
       title: "Social Login",
       description: `Attempted to sign in with ${provider}`,
+      variant: "default",
     });
     // Social authentication logic would go here
   };
