@@ -1,4 +1,14 @@
 
+// === Batch 11 Gaps & Frontend Mounts ===
+import GapSemanticSearchPage from './pages/gap/GapSemanticSearchPage'
+import GapAgenticPlaygroundPage from './pages/gap/GapAgenticPlaygroundPage'
+import GapPromptLibraryPage from './pages/gap/GapPromptLibraryPage'
+import GapSearchBackendPage from './pages/gap/GapSearchBackendPage'
+import GapApiKeyManagementPage from './pages/gap/GapApiKeyManagementPage'
+import GapUsageAnalyticsPage from './pages/gap/GapUsageAnalyticsPage'
+import GapBillingSubscriptionPage from './pages/gap/GapBillingSubscriptionPage'
+import GapDocsSearchPage from './pages/gap/GapDocsSearchPage'
+import GapStatusPagePage from './pages/gap/GapStatusPagePage'
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -11,6 +21,7 @@ import Developers from "./pages/Developers";
 import About from "./pages/About";
 import SignIn from "./pages/SignIn";
 import GetStarted from "./pages/GetStarted";
+import AIPlayground from "./pages/AIPlayground";
 import NotFound from "./pages/NotFound";
 
 // Product pages
@@ -74,6 +85,7 @@ const App = () => (
         <Route path="/about" element={<About />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/get-started" element={<GetStarted />} />
+        <Route path="/ai-playground" element={<AIPlayground />} />
         
         {/* Product pages */}
         <Route path="/products/voice-ai" element={<VoiceAI />} />
@@ -123,6 +135,16 @@ const App = () => (
         
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
+            {/* === Batch 11 Gaps & Frontend Mounts === */}
+        <Route path="/gap/semantic-search" element={<GapSemanticSearchPage />} />
+        <Route path="/gap/agentic-playground" element={<GapAgenticPlaygroundPage />} />
+        <Route path="/gap/prompt-library" element={<GapPromptLibraryPage />} />
+        <Route path="/gap/search-backend" element={<GapSearchBackendPage />} />
+        <Route path="/gap/api-key-management" element={<GapApiKeyManagementPage />} />
+        <Route path="/gap/usage-analytics" element={<GapUsageAnalyticsPage />} />
+        <Route path="/gap/billing-subscription" element={<GapBillingSubscriptionPage />} />
+        <Route path="/gap/docs-search" element={<GapDocsSearchPage />} />
+        <Route path="/gap/status-page" element={<GapStatusPagePage />} />
       </Routes>
     </TooltipProvider>
   </QueryClientProvider>
