@@ -17,6 +17,16 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
+// Custom Views (mounted BEFORE 404/global error handler)
+app.use('/api/custom-views', require('./routes/customViews'));
+
+app.use('/api', require('./routes/gap-features')); // === Batch 11 Gaps & Frontend Mounts ===
+
+// 404 (must come after all routes)
+app.use('/api', (req, res) => {
+  res.status(404).json({ error: 'Not found', path: req.originalUrl });
+});
+
 // Global error handler
 app.use((err, req, res, next) => {
   console.error('Unhandled error:', err.message);
@@ -24,8 +34,6 @@ app.use((err, req, res, next) => {
     error: err.message || 'Something went wrong',
   });
 });
-
-app.use('/api', require('./routes/gap-features')); // === Batch 11 Gaps & Frontend Mounts ===
 
 app.listen(PORT, () => {
   console.log(`Sonic Search Replica backend running on port ${PORT}`);
