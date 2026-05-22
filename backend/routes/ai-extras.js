@@ -58,6 +58,26 @@ router.post('/api-keys', auth, (req, res) => {
   res.json({ apiKey: key });
 });
 
+// List the current user's API keys (key string is masked).
+router.get('/api-keys', auth, (req, res) => {
+  const userId = req.user?.id;
+  const rows = [];
+  for (const [key, meta] of apiKeys.entries()) {
+    if (meta.userId !== userId) continue;
+    const masked = key.slice(0, 7) + '…' + key.slice(-4);
+    const recentHits = meta.hits.filter((t) => Date.now() - t < 3600000).length;
+    rows.push({
+      apiKeyMasked: masked,
+      createdAt: meta.createdAt,
+      scopes: meta.scopes,
+      quotaPerHour: meta.quotaPerHour,
+      usedLastHour: recentHits,
+      remaining: Math.max(0, meta.quotaPerHour - recentHits),
+    });
+  }
+  res.json({ keys: rows, count: rows.length });
+});
+
 router.get('/api-keys/check', (req, res) => {
   const k = req.headers['x-api-key'];
   if (!k) return res.status(401).json({ error: 'missing X-API-Key header' });

@@ -186,6 +186,9 @@ export function Header() {
         
         <div className="flex items-center space-x-2">
           <div className="hidden md:flex items-center space-x-3">
+            <Link to="/custom-views" data-testid="nav-sonic-views">
+              <Button variant="ghost">Sonic Views</Button>
+            </Link>
             <Link to="/signin">
               <Button variant="outline">Sign In</Button>
             </Link>
@@ -251,6 +254,9 @@ export function Header() {
                   ))}
                 </div>
                 <div className="py-6 space-y-3">
+                  <Link to="/custom-views" onClick={() => setMobileMenuOpen(false)}>
+                    <Button variant="ghost" className="w-full">Sonic Views</Button>
+                  </Link>
                   <Link to="/signin" onClick={() => setMobileMenuOpen(false)}>
                     <Button variant="outline" className="w-full">Sign In</Button>
                   </Link>

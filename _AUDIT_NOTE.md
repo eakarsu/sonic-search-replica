@@ -127,3 +127,76 @@ locally; pass rule forbids `npm install`).
 ### Remaining backlog
 None. The other items from previous passes (real ASR streaming, WebSocket transcripts,
 vector store) require backend infra changes that are out of scope for an additive pass.
+
+## Apply pass 7 (full backlog implementation)
+
+Closed unaddressed structural gaps in the scaffold (items not yet covered by any
+previous pass). Pure NEEDS-CREDS / TOO-RISKY items (real ASR streaming, WebSocket
+transcripts, vector store, Stripe billing) intentionally skipped per the constraints.
+
+### Items implemented
+
+1. **`users` table never created.** `routes/auth.js` `/register` and `/login` both
+   referenced a `users` table that no migration ever created — first call would
+   crash with `relation "users" does not exist`. Added an idempotent
+   `ensureUsersTable()` at module load that runs
+   `CREATE TABLE IF NOT EXISTS users (id, name, email UNIQUE, password, created_at)`.
+
+2. **No `GET /api/auth/me` endpoint.** A standard sign-in flow needs to resolve the
+   stored JWT to a fresh user record. Added `GET /api/auth/me` (auth-guarded),
+   returns `{ user: { id, name, email, created_at } }`.
+
+3. **`voice_transcripts` table written nowhere.** The scaffold (`routes/ai.js`)
+   created this table but nothing ever inserted into it — pure dead schema. Added
+   `backend/routes/transcripts.js` with full CRUD:
+   - `POST   /api/transcripts`        — save `{ transcript, language?, domain?, confidence? }`
+   - `GET    /api/transcripts`        — list current user's transcripts (limit/offset)
+   - `GET    /api/transcripts/:id`    — fetch single (owner-scoped)
+   - `DELETE /api/transcripts/:id`    — delete (owner-scoped)
+   - Includes its own `CREATE TABLE IF NOT EXISTS voice_transcripts` so the route
+     works even if `routes/ai.js` hasn't run yet.
+   Mounted at `app.use('/api/transcripts', …)` in `server.js` **before** the
+   404 handler (matches the existing `customViews` and `gap-features` mount order).
+
+4. **No way to list user-owned API keys.** `routes/ai-extras.js` could create keys
+   (`POST /api-keys`) and verify them (`GET /api-keys/check`) but had no listing
+   endpoint, so the user could never see what they'd issued. Added
+   `GET /api/extras/api-keys` (auth-guarded) returning the user's own keys with
+   the key string masked (`sk_xxxx…yyyy`), plus `quotaPerHour`, `usedLastHour`,
+   and `remaining`.
+
+5. **New frontend page `/transcripts`** (`src/pages/Transcripts.tsx`) — wires
+   `POST/GET/DELETE /api/transcripts` end-to-end with the same Header / Footer /
+   ScrollArea pattern used by `AIPlayground.tsx` and `SignIn.tsx`. Reads JWT from
+   `localStorage.token` (same convention as `AIPlayground.tsx`); surfaces a clear
+   "sign in via /ai-playground" message on 401. Registered in `src/App.tsx` above
+   the `*` catch-all.
+
+### Files touched
+
+| Path | Change |
+|---|---|
+| `backend/routes/auth.js` | + `ensureUsersTable()`, + `GET /me` |
+| `backend/routes/transcripts.js` | NEW — POST/GET/GET-one/DELETE |
+| `backend/routes/ai-extras.js` | + `GET /api-keys` (list, masked) |
+| `backend/server.js` | + mount `/api/transcripts` before 404 handler |
+| `src/pages/Transcripts.tsx` | NEW — form + list + delete |
+| `src/App.tsx` | + import + `<Route path="/transcripts">` above `*` |
+
+### Verification
+
+- `node --check backend/server.js backend/routes/auth.js backend/routes/transcripts.js backend/routes/ai-extras.js` → all OK.
+- `tsc --noEmit -p tsconfig.app.json` → only the pre-existing
+  `developers/documentation` case-collision error (unrelated; present since pass 3).
+- No new npm deps added; reuses `express`, `pg`, JWT middleware, and shadcn UI
+  pieces already in the project.
+- Tables are created with `CREATE TABLE IF NOT EXISTS` so reruns are safe.
+
+### Intentionally skipped (NEEDS-CREDS / TOO-RISKY)
+
+- Real-time ASR streaming endpoint — needs audio-pipeline infra (TOO-RISKY).
+- WebSocket transcript channel — adds runtime dep, infra change (TOO-RISKY).
+- Vector-store backed semantic search across transcripts — needs an actual vector
+  DB or proper embedding provider (NEEDS-CREDS / infra).
+- Stripe billing in `routes/ai-extras.js` (the `// TODO: configure credentials`
+  marker) — pure NEEDS-CREDS, current 503-style stub left as-is.

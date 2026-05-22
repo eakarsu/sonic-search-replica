@@ -1,4 +1,6 @@
 
+// Custom Views (Sonic Views) page
+import CustomViewsPage from './pages/custom-views/CustomViewsPage'
 // === Batch 11 Gaps & Frontend Mounts ===
 import GapSemanticSearchPage from './pages/gap/GapSemanticSearchPage'
 import GapAgenticPlaygroundPage from './pages/gap/GapAgenticPlaygroundPage'
@@ -22,6 +24,7 @@ import About from "./pages/About";
 import SignIn from "./pages/SignIn";
 import GetStarted from "./pages/GetStarted";
 import AIPlayground from "./pages/AIPlayground";
+import Transcripts from "./pages/Transcripts";
 import NotFound from "./pages/NotFound";
 
 // Product pages
@@ -70,6 +73,9 @@ import News from "./pages/company/News";
 import Contact from "./pages/company/Contact";
 import Partners from "./pages/company/Partners";
 
+import CodexCustomVizFeature from './pages/CodexCustomVizFeature';
+import CodexOperationsFeature from './pages/CodexOperationsFeature';
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -78,6 +84,9 @@ const App = () => (
       <Toaster />
       <Sonner />
       <Routes>
+        <Route path="/codex/custom-viz" element={<CodexCustomVizFeature />} />
+        <Route path="/codex/operations" element={<CodexOperationsFeature />} />
+
         <Route path="/" element={<Index />} />
         <Route path="/products" element={<Products />} />
         <Route path="/solutions" element={<Solutions />} />
@@ -86,6 +95,7 @@ const App = () => (
         <Route path="/signin" element={<SignIn />} />
         <Route path="/get-started" element={<GetStarted />} />
         <Route path="/ai-playground" element={<AIPlayground />} />
+        <Route path="/transcripts" element={<Transcripts />} />
         
         {/* Product pages */}
         <Route path="/products/voice-ai" element={<VoiceAI />} />
@@ -133,6 +143,9 @@ const App = () => (
         <Route path="/company/contact" element={<Contact />} />
         <Route path="/company/partners" element={<Partners />} />
         
+        {/* Custom Views (Sonic Views) */}
+        <Route path="/custom-views" element={<CustomViewsPage />} />
+
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
             {/* === Batch 11 Gaps & Frontend Mounts === */}

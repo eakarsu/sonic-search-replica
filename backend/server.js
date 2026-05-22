@@ -20,6 +20,9 @@ app.get('/api/health', (req, res) => {
 // Custom Views (mounted BEFORE 404/global error handler)
 app.use('/api/custom-views', require('./routes/customViews'));
 
+// Voice transcripts CRUD (apply pass 7)
+app.use('/api/transcripts', require('./routes/transcripts'));
+
 app.use('/api', require('./routes/gap-features')); // === Batch 11 Gaps & Frontend Mounts ===
 
 // 404 (must come after all routes)
