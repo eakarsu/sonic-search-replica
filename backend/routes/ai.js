@@ -84,7 +84,6 @@ async function ensureAiTables() {
   `).catch(err => console.error('ensureAiTables:', err.message));
 }
 
-ensureAiTables().catch(console.error);
 
 // ---------------------------------------------------------------------------
 // GET /api/ai/history

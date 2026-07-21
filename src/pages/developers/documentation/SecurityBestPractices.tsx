@@ -50,7 +50,7 @@ const SecurityBestPractices = () => {
               <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                 <code>
                   {`// NEVER do this (in client-side code):
-const apiKey = "sk_live_abcdefg123456";
+const exposedCredential = "[redacted credential]";
                   
 // Instead, use environment variables on your server
 const apiKey = process.env.SERVIQAI_API_KEY;

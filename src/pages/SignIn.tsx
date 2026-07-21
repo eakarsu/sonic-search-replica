@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Facebook, Github } from "lucide-react";
 import Header from "@/components/layout/Header";
@@ -12,40 +12,23 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { toast } = useToast();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Sign in attempt with:", email);
-    toast({
-      title: "Sign in attempt",
-      description: `Attempted to sign in with ${email}`,
+    const response = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ email, password }),
     });
-    // Authentication logic would go here
-  };
-
-  const handleSocialLogin = (provider: string) => {
-    console.log(`${provider} login attempt`);
-    toast({
-      title: "Social Login Redirect",
-      description: `Redirecting to ${provider} login page...`,
-      variant: "default",
-    });
-    
-    // Add actual redirect logic based on provider
-    switch(provider) {
-      case "Google":
-        window.location.href = "https://accounts.google.com/o/oauth2/auth?client_id=YOUR_GOOGLE_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&scope=email%20profile&response_type=code";
-        break;
-      case "Facebook":
-        window.location.href = "https://www.facebook.com/v12.0/dialog/oauth?client_id=YOUR_FACEBOOK_APP_ID&redirect_uri=YOUR_REDIRECT_URI&scope=email,public_profile";
-        break;
-      case "GitHub":
-        window.location.href = "https://github.com/login/oauth/authorize?client_id=YOUR_GITHUB_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&scope=user:email";
-        break;
-      default:
-        // For demo purposes, we'll simulate the redirect with a console log
-        console.log(`Redirecting to ${provider} login page...`);
+    const data = await response.json();
+    if (!response.ok || !data.token) {
+      toast({ title: 'Sign in failed', description: data.error || 'Invalid credentials', variant: 'destructive' });
+      return;
     }
+    localStorage.setItem('token', data.token);
+    toast({ title: 'Signed in', description: `Welcome ${data.user.email}` });
+    navigate('/ai-playground');
   };
 
   return (
@@ -61,7 +44,7 @@ const SignIn = () => {
               <Button 
                 variant="outline" 
                 className="flex items-center justify-center gap-2 border border-gray-300"
-                onClick={() => handleSocialLogin("Google")}
+                disabled title="Social login is not configured"
               >
                 <svg className="h-5 w-5" viewBox="0 0 24 24">
                   <path
@@ -85,14 +68,14 @@ const SignIn = () => {
               <Button 
                 variant="outline" 
                 className="flex items-center justify-center gap-2 bg-[#1877F2] text-white hover:bg-[#1877F2]/90"
-                onClick={() => handleSocialLogin("Facebook")}
+                disabled title="Social login is not configured"
               >
                 <Facebook size={20} />
               </Button>
               <Button 
                 variant="outline" 
                 className="flex items-center justify-center gap-2 bg-[#24292F] text-white hover:bg-[#24292F]/90"
-                onClick={() => handleSocialLogin("GitHub")}
+                disabled title="Social login is not configured"
               >
                 <Github size={20} />
               </Button>

@@ -50,7 +50,7 @@ const ApiAccess = () => {
               <CodeBlock language="bash">
 {`# Speech recognition request
 curl -X POST https://api.serviqai.com/v1/speech/recognize \\
-  -H "Authorization: Bearer YOUR_API_KEY" \\
+  -H "Authorization: [signed login token]" \\
   -H "Content-Type: audio/wav" \\
   --data-binary @audio_sample.wav`}
               </CodeBlock>

@@ -1,16 +1,13 @@
 const { Pool } = require('pg');
-require('dotenv').config({ path: '../.env' });
 
-const pool = new Pool({
-  host: process.env.DB_HOST || 'localhost',
-  port: process.env.DB_PORT || 5432,
-  database: process.env.DB_NAME || 'sonic_search_replica',
-  user: process.env.DB_USER || 'postgres',
-  password: process.env.DB_PASSWORD || '',
-});
+const databaseUrl = String(process.env.DATABASE_URL || '').trim();
+if (!/^postgres(?:ql)?:\/\//.test(databaseUrl)) {
+  throw new Error('DATABASE_URL must use PostgreSQL');
+}
 
-pool.on('error', (err) => {
-  console.error('Unexpected error on idle client', err);
-});
+const max = Number(process.env.DB_POOL_MAX || 10);
+if (!Number.isInteger(max) || max < 1 || max > 50) throw new Error('DB_POOL_MAX must be an integer from 1 to 50');
 
+const pool = new Pool({ connectionString: databaseUrl, max, connectionTimeoutMillis: 5000, idleTimeoutMillis: 30000, statement_timeout: 15000 });
+pool.on('error', (error) => console.error(JSON.stringify({ level: 'error', event: 'idle_database_error', message: error.message })));
 module.exports = pool;

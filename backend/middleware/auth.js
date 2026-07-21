@@ -1,18 +1,2 @@
-const jwt = require('jsonwebtoken');
-require('dotenv').config({ path: '../../.env' });
-
-const auth = (req, res, next) => {
-  const token = req.header('Authorization')?.replace('Bearer ', '');
-  if (!token) {
-    return res.status(401).json({ error: 'Access denied. No token provided.' });
-  }
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'dev-secret-change-me');
-    req.user = decoded;
-    next();
-  } catch (err) {
-    res.status(401).json({ error: 'Invalid token.' });
-  }
-};
-
-module.exports = auth;
+const jwt=require('jsonwebtoken');const pool=require('../db');const config=require('../config');
+module.exports=async function auth(req,res,next){const header=String(req.headers.authorization||'');if(!header.startsWith('Bearer '))return res.status(401).json({error:'Access token required',code:'AUTH_REQUIRED'});try{const payload=jwt.verify(header.slice(7),config.jwtSecret,{issuer:config.jwtIssuer,audience:config.jwtAudience,algorithms:['HS256']});if(!/^\d+$/.test(String(payload.sub||'')))throw new Error('invalid subject');const user=(await pool.query("SELECT id,name,email,role FROM users WHERE id=$1 AND is_active=TRUE AND role IN ('CREATOR','REVIEWER','ADMIN')",[Number(payload.sub)])).rows[0];if(!user)return res.status(401).json({error:'Invalid access token',code:'AUTH_INVALID'});req.user=user;next();}catch(_error){res.status(401).json({error:'Invalid access token',code:'AUTH_INVALID'});}};

@@ -22,7 +22,6 @@ async function ensureTranscriptsTable() {
     );
   `).catch((err) => console.error('ensureTranscriptsTable:', err.message));
 }
-ensureTranscriptsTable().catch(console.error);
 
 // POST /api/transcripts — save a transcript
 router.post('/', auth, async (req, res) => {
