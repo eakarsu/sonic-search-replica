@@ -29,7 +29,7 @@ test('PostgreSQL media journey, isolation, migration controls, and failure recov
   const { migrate, verifySchema } = require('../db/migrate'); const fixtures = require('../db/fixtures'); const pool = require('../db');
   const { app } = require('../server'); const { processJob } = require('../services/worker'); const storage = require('../services/storage');
   t.after(async () => { await pool.end(); await fs.promises.rm(storageRoot, { recursive: true, force: true }); });
-  assert.equal((await migrate()).newlyApplied, 1); assert.equal((await migrate({ checkOnly: true })).pending, 0); await fixtures();
+  assert.equal((await migrate()).newlyApplied, 2); assert.equal((await migrate({ checkOnly: true })).pending, 0); await fixtures();
 
   const login = async (email) => (await request(app).post('/api/auth/login').send({ email, password: 'ValidFixturePass1234' }).expect(200)).body.token;
   const creator = await login('creator@example.test'); const reviewer = await login('reviewer@example.test'); const other = await login('other@example.test');

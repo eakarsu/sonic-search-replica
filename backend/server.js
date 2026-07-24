@@ -51,6 +51,7 @@ const authLimiter = rateLimit({
 });
 app.use('/api/auth', authLimiter, require('./routes/auth'));
 app.use('/api/media', require('./routes/media'));
+app.use('/api/runtime-ai', require('./routes/runtimeAi'));
 app.get('/api/health/live', (req, res) => res.json({ status: 'live' }));
 app.get('/api/health/ready', async (req, res) => {
   try {
