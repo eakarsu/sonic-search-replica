@@ -9,13 +9,12 @@ async function fixtures() {
   const client=await pool.connect();
   try {
     await client.query('BEGIN ISOLATION LEVEL SERIALIZABLE');
-    const count=Number((await client.query('SELECT COUNT(*) FROM users')).rows[0].count);
-    if (count) throw new Error('Fixture load requires an empty users table');
     const hash=await bcrypt.hash(password,12);
     await client.query(`INSERT INTO users(name,email,password_hash,role) VALUES
       ('Fixture Creator','creator@example.test',$1,'CREATOR'),
       ('Fixture Reviewer','reviewer@example.test',$1,'REVIEWER'),
-      ('Fixture Other','other@example.test',$1,'CREATOR')`,[hash]);
+      ('Fixture Other','other@example.test',$1,'CREATOR')
+      ON CONFLICT(email) DO UPDATE SET password_hash=EXCLUDED.password_hash, role=EXCLUDED.role`,[hash]);
     await client.query('COMMIT'); return {users:3};
   } catch(error){await client.query('ROLLBACK').catch(()=>{});throw error;} finally{client.release();}
 }
