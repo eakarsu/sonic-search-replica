@@ -98,13 +98,19 @@ case "$FRONTEND_PORT" in *[!0-9]*|'') echo 'FRONTEND_PORT must be an integer.' >
 
 runtime_port=$(cd "$project_dir" && node -e "process.stdout.write(String(require('./backend/config').port))")
 storage_root=$(cd "$project_dir" && node -e "process.stdout.write(require('./backend/config').mediaStorageRoot)")
+if [ "${NODE_ENV:-production}" != production ]; then mkdir -p "$storage_root"; fi
 [ -d "$storage_root" ] || { echo 'MEDIA_STORAGE_ROOT must be prepared before startup.' >&2; exit 1; }
 [ -r "$storage_root" ] && [ -w "$storage_root" ] || { echo 'MEDIA_STORAGE_ROOT must be readable and writable.' >&2; exit 1; }
 for assigned_port in "$runtime_port" "$FRONTEND_PORT"; do
   if command -v lsof >/dev/null 2>&1 && lsof -nP -iTCP:"$assigned_port" -sTCP:LISTEN >/dev/null 2>&1; then echo "Port $assigned_port is occupied." >&2; exit 1; fi
 done
 
-(cd "$project_dir/backend" && node db/migrate.js --check)
+if [ "${NODE_ENV:-production}" != production ]; then
+  (cd "$project_dir/backend" && node db/migrate.js)
+  (cd "$project_dir/backend" && BOOTSTRAP_ACKNOWLEDGEMENT=create-initial-admin node db/create-admin.js)
+else
+  (cd "$project_dir/backend" && node db/migrate.js --check)
+fi
 API_PROXY_TARGET="http://127.0.0.1:$BACKEND_PORT"
 VITE_API_BASE="http://127.0.0.1:$BACKEND_PORT"
 export API_PROXY_TARGET VITE_API_BASE

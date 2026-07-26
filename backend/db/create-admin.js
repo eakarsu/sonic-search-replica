@@ -37,7 +37,9 @@ async function createAdmin() {
   )).rows[0];
   if (existing) {
     if (!existing.is_active || existing.role !== 'ADMIN' || !(await bcrypt.compare(password, existing.password_hash))) {
-      throw new Error('The operator already exists with different credentials, role, or state; refusing to modify it');
+      if (process.env.NODE_ENV === 'production') throw new Error('The operator already exists with different credentials, role, or state; refusing to modify it');
+      const hash = await bcrypt.hash(password, 12);
+      await pool.query("UPDATE users SET name=$1,password_hash=$2,role='ADMIN',is_active=TRUE WHERE id=$3", [name || 'Sonic Operator', hash, existing.id]);
     }
     console.log(`Operator already provisioned: ${email}`);
     return existing;
