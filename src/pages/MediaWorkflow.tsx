@@ -44,7 +44,12 @@ function AuthScreen({ onAuthenticated }: { onAuthenticated: (token: string, user
         <label className="block text-sm font-medium">Password<input className="mt-2 w-full rounded-lg border border-slate-600 bg-slate-950 px-3 py-2" type="password" value={password} onChange={(event) => setPassword(event.target.value)} minLength={mode === 'register' ? 12 : 1} maxLength={72} autoComplete={mode === 'register' ? 'new-password' : 'current-password'} required /></label>
         {mode === 'register' && <p className="text-xs text-slate-400">Use 12–72 characters with upper-case, lower-case, and numeric characters.</p>}
         <p className="min-h-6 text-sm text-rose-300" role="alert">{message}</p>
-        <button className="w-full rounded-lg bg-cyan-400 px-4 py-2 font-bold text-slate-950 hover:bg-cyan-300 disabled:opacity-60" disabled={busy}>{busy ? 'Working…' : mode === 'login' ? 'Sign in' : 'Register'}</button>
+        {mode === 'login' && import.meta.env.VITE_ENABLE_DEMO_CREDENTIAL_AUTOFILL === 'true' && <button
+          type="button"
+          className="w-full rounded-lg border border-cyan-300 px-4 py-2 font-semibold text-cyan-200 hover:bg-slate-800"
+          onClick={() => { setEmail(import.meta.env.VITE_DEMO_EMAIL || ''); setPassword(import.meta.env.VITE_DEMO_PASSWORD || ''); setMessage(''); }}
+        >Auto Fill Demo Credentials</button>}
+        <button className="w-full rounded-lg bg-cyan-400 px-4 py-2 font-bold text-slate-950 hover:bg-cyan-300 disabled:opacity-60" disabled={busy}>{busy ? 'Working…' : mode === 'login' ? 'Sign In' : 'Register'}</button>
       </form>
       <button className="mt-5 w-full text-sm text-cyan-300 underline" onClick={() => { setMode(mode === 'login' ? 'register' : 'login'); setMessage(''); }}>{mode === 'login' ? 'Need a creator account?' : 'Already have an account?'}</button>
     </section>
