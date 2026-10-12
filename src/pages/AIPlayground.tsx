@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import OperationsAIReport from "@/components/OperationsAIReport";
 
 // Minimal AI Playground — wires the Vite/React frontend to the Express
 // backend at backend/routes/ai.js.  All endpoints require a JWT obtained
@@ -220,6 +221,57 @@ const ENDPOINTS: Record<
 
 type Tab = "playground" | "signin" | "history";
 
+const PRESETS: Record<EndpointKey, { label: string; values: Record<string, string> }[]> = {
+  "intent-classify": [
+    { label: "Home audio", values: { transcript: "Play a quiet jazz playlist in the kitchen", language: "en-US", domain: "smart_home" } },
+    { label: "Travel search", values: { transcript: "Find the next train to Boston", language: "en-US", domain: "travel" } },
+  ],
+  "voice-search-rewrite": [
+    { label: "Local restaurant", values: { spokenQuery: "Um, find a quiet Thai place near downtown that's open tonight", searchDomain: "local_business", locale: "en-US" } },
+    { label: "Product search", values: { spokenQuery: "Show me waterproof hiking boots under one hundred dollars", searchDomain: "retail", locale: "en-US" } },
+  ],
+  "asr-correct": [
+    { label: "Grocery list", values: { rawTranscript: "add hole wheat bred to my list", alternativeHypotheses: "add whole wheat bread to my list", domain: "shopping" } },
+    { label: "Calendar", values: { rawTranscript: "set a meeting for too thirty on fry day", alternativeHypotheses: "set a meeting for two thirty on Friday", domain: "calendar" } },
+  ],
+  "entity-extract": [
+    { label: "Restaurant booking", values: { transcript: "Book a table for two at Luigi's tomorrow at 7 pm" } },
+    { label: "Travel booking", values: { transcript: "Find flights from Seattle to Denver next Monday morning" } },
+  ],
+  "wakeword-suggest": [
+    { label: "Home assistant", values: { brand: "Hearth", productName: "Hearth home assistant", language: "en-US", tone: "warm and concise" } },
+    { label: "Car assistant", values: { brand: "Northstar", productName: "Northstar drive assistant", language: "en-US", tone: "calm and clear" } },
+  ],
+  "custom-domain-train": [
+    { label: "Smart kitchen", values: { domainName: "smart_kitchen", description: "Voice commands to set oven temperature, start timers, and check appliance status." } },
+    { label: "Transit", values: { domainName: "city_transit", description: "Voice queries for departure times, route changes, and accessible stations." } },
+  ],
+  "dialog-respond": [
+    { label: "Music follow-up", values: { conversation: "User: Play jazz\nAssistant: Any artist in mind?\nUser: Miles Davis", persona: "helpful, concise, friendly", latencyTier: "standard" } },
+    { label: "Timer follow-up", values: { conversation: "User: Set a timer\nAssistant: For how long?\nUser: Fifteen minutes", persona: "clear and reassuring", latencyTier: "low_latency" } },
+  ],
+  "summarize-call": [
+    { label: "Delivery support", values: { transcript: "Agent: How can I help?\nCaller: My order has not arrived.\nAgent: I will check the tracking status.", callType: "support" } },
+    { label: "Billing inquiry", values: { transcript: "Caller: I have a question about last month's invoice.\nAgent: I can explain the listed charges.", callType: "billing" } },
+  ],
+  "voice-command-route": [
+    { label: "Home control", values: { transcript: "Dim the living room lights to thirty percent" } },
+    { label: "Reminder", values: { transcript: "Remind me to call the dentist tomorrow morning" } },
+  ],
+  "transcript-redact": [
+    { label: "US phone number", values: { transcript: "My name is Jordan Lee and you can reach me at 555-0102.", jurisdiction: "US" } },
+    { label: "EU email", values: { transcript: "Please send the receipt to alex@example.org for my Berlin order.", jurisdiction: "EU-GDPR" } },
+  ],
+  "accent-locale-suggest": [
+    { label: "Australian English", values: { sampleTranscript: "I'll grab the parcel from the post office this arvo.", declaredLocale: "en-AU", deviceRegion: "AU" } },
+    { label: "British English", values: { sampleTranscript: "Put the shopping in the boot and check the timetable.", declaredLocale: "en-GB", deviceRegion: "GB" } },
+  ],
+  "false-trigger-analyze": [
+    { label: "Television audio", values: { wakeWord: "Hey Hearth", surroundingTranscript: "A television presenter says 'hey, hear this' while the device is idle.", deviceType: "smart_speaker" } },
+    { label: "Headphone conversation", values: { wakeWord: "Hey Northstar", surroundingTranscript: "A nearby conversation mentions a name sounding similar to Northstar.", deviceType: "headphones" } },
+  ],
+};
+
 const AIPlayground = () => {
   const [tab, setTab] = useState<Tab>("playground");
   const [endpoint, setEndpoint] = useState<EndpointKey>("intent-classify");
@@ -426,6 +478,9 @@ const AIPlayground = () => {
                     />
                   </div>
                   <div className="flex gap-2">
+                    <Button type="button" variant="outline" disabled={!import.meta.env.VITE_DEMO_EMAIL || !import.meta.env.VITE_DEMO_PASSWORD || siLoading} onClick={() => { setSiEmail(import.meta.env.VITE_DEMO_EMAIL || ""); setSiPassword(import.meta.env.VITE_DEMO_PASSWORD || ""); setSiMessage(null); }}>
+                      Fill demo credentials
+                    </Button>
                     <Button type="submit" disabled={siLoading}>
                       {siLoading ? "Signing in..." : "Sign In"}
                     </Button>
@@ -456,9 +511,14 @@ const AIPlayground = () => {
                   </div>
                 )}
                 {historyData !== null && historyData !== undefined && (
-                  <pre className="bg-gray-50 border rounded p-4 text-xs overflow-auto whitespace-pre-wrap max-h-[480px]">
-                    {JSON.stringify(historyData, null, 2)}
-                  </pre>
+                  <div className="space-y-4">
+                    {((historyData as { results?: { id: number; endpoint: string; result_text: string; created_at: string }[] }).results || []).map(saved => (
+                      <details key={saved.id} className="rounded border p-4">
+                        <summary className="cursor-pointer font-medium">{saved.endpoint} · {new Date(saved.created_at).toLocaleString()}</summary>
+                        <OperationsAIReport value={saved.result_text} title={`${saved.endpoint} result`} />
+                      </details>
+                    ))}
+                  </div>
                 )}
               </div>
             )}
@@ -486,6 +546,9 @@ const AIPlayground = () => {
               <p className="text-sm text-gray-500 mb-4">{config.description}</p>
 
               <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="flex flex-wrap gap-2" aria-label="Complete examples">
+                  {PRESETS[endpoint].map(preset => <Button key={preset.label} type="button" variant="outline" disabled={loading} onClick={() => { setValues(preset.values); setResult(null); setError(null); }}>Fill: {preset.label}</Button>)}
+                </div>
                 {config.inputs.map((input) => (
                   <div key={input.name}>
                     <label className="block text-sm font-medium mb-1">
@@ -527,10 +590,7 @@ const AIPlayground = () => {
 
             {result !== null && result !== undefined && (
               <div className="bg-white p-6 rounded-lg shadow border">
-                <h2 className="text-lg font-semibold mb-3">Result</h2>
-                <pre className="bg-gray-50 border rounded p-4 text-xs overflow-auto whitespace-pre-wrap">
-                  {JSON.stringify(result, null, 2)}
-                </pre>
+                <OperationsAIReport value={result} title="Result" />
               </div>
             )}
             </>

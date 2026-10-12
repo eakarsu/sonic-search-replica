@@ -1,4 +1,5 @@
 import { FormEvent, useCallback, useEffect, useMemo, useState } from 'react';
+import OperationsReadinessAI from '../components/OperationsReadinessAI';
 
 type User = { id: number; name: string; email: string; role: 'CREATOR' | 'REVIEWER' | 'ADMIN' };
 type Project = { id: string; title: string; language: string; latest_version_id?: string; version_number?: number; processing_state?: string; review_state?: string };
@@ -47,8 +48,10 @@ function AuthScreen({ onAuthenticated }: { onAuthenticated: (token: string, user
         {mode === 'login' && import.meta.env.VITE_ENABLE_DEMO_CREDENTIAL_AUTOFILL === 'true' && <button
           type="button"
           className="w-full rounded-lg border border-cyan-300 px-4 py-2 font-semibold text-cyan-200 hover:bg-slate-800"
+          disabled={!import.meta.env.VITE_DEMO_EMAIL || !import.meta.env.VITE_DEMO_PASSWORD || busy}
           onClick={() => { setEmail(import.meta.env.VITE_DEMO_EMAIL || ''); setPassword(import.meta.env.VITE_DEMO_PASSWORD || ''); setMessage(''); }}
-        >Auto Fill Demo Credentials</button>}
+        >Fill demo credentials</button>}
+        {mode === 'login' && import.meta.env.VITE_ENABLE_DEMO_CREDENTIAL_AUTOFILL === 'true' && (!import.meta.env.VITE_DEMO_EMAIL || !import.meta.env.VITE_DEMO_PASSWORD) && <p className="text-xs text-amber-200">Demo credentials are not configured.</p>}
         <button className="w-full rounded-lg bg-cyan-400 px-4 py-2 font-bold text-slate-950 hover:bg-cyan-300 disabled:opacity-60" disabled={busy}>{busy ? 'Working…' : mode === 'login' ? 'Sign In' : 'Register'}</button>
       </form>
       <button className="mt-5 w-full text-sm text-cyan-300 underline" onClick={() => { setMode(mode === 'login' ? 'register' : 'login'); setMessage(''); }}>{mode === 'login' ? 'Need a creator account?' : 'Already have an account?'}</button>
@@ -119,6 +122,7 @@ export default function MediaWorkflow() {
     <header className="border-b border-slate-800 bg-slate-900"><div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4"><div><h1 className="text-xl font-bold">Sonic media workflow</h1><p className="text-xs text-slate-400">Validated WAV · Human transcript · WebVTT · Independent approval</p></div><div className="text-right text-sm"><p>{user.name} · <strong>{user.role}</strong></p><button className="text-cyan-300 underline" onClick={logout}>Sign out</button></div></div></header>
     <main className="mx-auto grid max-w-7xl gap-6 px-5 py-6 lg:grid-cols-[22rem_1fr]">
       <aside className="space-y-5">
+        <OperationsReadinessAI token={token} />
         {creator && <section className="rounded-2xl border border-slate-700 bg-slate-900 p-5" aria-labelledby="upload-heading"><h2 id="upload-heading" className="text-lg font-bold">Upload media package</h2>
           <form className="mt-4 space-y-4" onSubmit={upload}>
             <fieldset><legend className="text-sm font-medium">Destination</legend><label className="mr-4 text-sm"><input type="radio" checked={uploadMode === 'new'} onChange={() => setUploadMode('new')} /> New project</label><label className="text-sm"><input type="radio" checked={uploadMode === 'version'} onChange={() => setUploadMode('version')} disabled={!selectedId} /> Selected project version</label></fieldset>

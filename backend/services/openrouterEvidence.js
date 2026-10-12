@@ -12,7 +12,9 @@ function openRouterConfig(env = process.env) {
   return { apiKey, model, baseUrl };
 }
 
-async function requestMediaOperationsReadiness(workflowSummary, request = fetch) {
+async function requestMediaOperationsReadiness(workflowSummary, request = fetch, options = {}) {
+  const signal = options.signal ? AbortSignal.any([options.signal, AbortSignal.timeout(120000)]) : AbortSignal.timeout(120000);
+  signal.throwIfAborted();
   const config = openRouterConfig();
   const response = await request(`${config.baseUrl}/chat/completions`, {
     method: 'POST',
@@ -26,10 +28,11 @@ async function requestMediaOperationsReadiness(workflowSummary, request = fetch)
         { role: 'user', content: workflowSummary },
       ],
     }),
-    signal: AbortSignal.timeout(120000),
+    signal,
   });
   if (!response.ok) throw new Error(`OpenRouter request failed with status ${response.status}`);
   const data = await response.json();
+  signal.throwIfAborted();
   const result = data?.choices?.[0]?.message?.content?.trim();
   const requestId = data?.id;
   const providerModel = data?.model || config.model;

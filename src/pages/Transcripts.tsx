@@ -37,6 +37,10 @@ const Transcripts = () => {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [info, setInfo] = useState<string | null>(null);
+  const [detail, setDetail] = useState<Transcript | null>(null);
+  const [confirming, setConfirming] = useState(false);
+
+  const openRow = (row: Transcript) => { setDetail(row); setConfirming(false); };
 
   const authHeader = () => {
     const token =
@@ -240,7 +244,12 @@ const Transcripts = () => {
                 {rows.map((t) => (
                   <li
                     key={t.id}
-                    className="py-3 flex justify-between items-start gap-4"
+                    tabIndex={0}
+                    onClick={() => openRow(t)}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter" || event.key === " ") { event.preventDefault(); openRow(t); }
+                    }}
+                    className="py-3 flex justify-between items-start gap-4 cursor-pointer hover:bg-gray-50 focus:outline-none focus:bg-gray-50"
                   >
                     <div className="flex-1 min-w-0">
                       <div className="text-sm font-medium break-words">
@@ -261,9 +270,9 @@ const Transcripts = () => {
                     <Button
                       type="button"
                       variant="outline"
-                      onClick={() => handleDelete(t.id)}
+                      onClick={(event) => { event.stopPropagation(); openRow(t); }}
                     >
-                      Delete
+                      Details
                     </Button>
                   </li>
                 ))}
@@ -273,6 +282,41 @@ const Transcripts = () => {
         </main>
       </ScrollArea>
       <Footer />
+
+      {detail && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4" onMouseDown={(event) => { if (event.target === event.currentTarget) setDetail(null); }}>
+          <div role="dialog" aria-modal="true" aria-label="Transcript details" className="max-h-[85vh] w-[min(36rem,95vw)] overflow-auto rounded-lg border bg-white p-6 shadow-xl">
+            <div className="mb-4 flex items-start justify-between gap-4">
+              <div>
+                <span className="text-xs font-semibold uppercase tracking-wide text-gray-500">Record details</span>
+                <h2 className="text-lg font-semibold">Transcript #{detail.id}</h2>
+              </div>
+              <button type="button" aria-label="Cancel" className="rounded border px-3 py-1 text-sm text-gray-600 hover:bg-gray-50" onClick={() => setDetail(null)}>×</button>
+            </div>
+            <dl className="space-y-2 text-sm">
+              <div className="grid grid-cols-[9rem_1fr] gap-3 border-b py-2"><dt className="font-medium text-gray-500">Transcript</dt><dd className="whitespace-pre-wrap break-words text-gray-800">{detail.transcript}</dd></div>
+              <div className="grid grid-cols-[9rem_1fr] gap-3 border-b py-2"><dt className="font-medium text-gray-500">Language</dt><dd className="text-gray-800">{detail.language || "—"}</dd></div>
+              <div className="grid grid-cols-[9rem_1fr] gap-3 border-b py-2"><dt className="font-medium text-gray-500">Domain</dt><dd className="text-gray-800">{detail.domain || "—"}</dd></div>
+              <div className="grid grid-cols-[9rem_1fr] gap-3 border-b py-2"><dt className="font-medium text-gray-500">Confidence</dt><dd className="text-gray-800">{detail.confidence !== null && detail.confidence !== undefined ? detail.confidence : "—"}</dd></div>
+              <div className="grid grid-cols-[9rem_1fr] gap-3 border-b py-2"><dt className="font-medium text-gray-500">Created</dt><dd className="text-gray-800">{detail.created_at ? new Date(detail.created_at).toLocaleString() : "—"}</dd></div>
+            </dl>
+            {confirming && (
+              <div role="alert" className="mt-4 rounded border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+                <strong>Delete transcript #{detail.id}?</strong>
+                <div className="mt-3 flex gap-2">
+                  <Button type="button" onClick={async () => { const id = detail.id; setDetail(null); setConfirming(false); await handleDelete(id); }}>Delete record</Button>
+                  <Button type="button" variant="outline" onClick={() => setConfirming(false)}>Cancel deletion</Button>
+                </div>
+              </div>
+            )}
+            <div className="mt-5 flex flex-wrap gap-2">
+              <Button type="button" variant="outline" onClick={() => { setTranscript(detail.transcript); setLanguage(detail.language || ""); setDomain(detail.domain || ""); setConfidence(detail.confidence !== null && detail.confidence !== undefined ? String(detail.confidence) : ""); setInfo("Loaded into the form below. The API has no update endpoint, so saving creates a corrected record."); setDetail(null); }}>Edit</Button>
+              <Button type="button" variant="outline" onClick={() => setConfirming(true)}>Delete</Button>
+              <Button type="button" variant="outline" onClick={() => setDetail(null)}>Cancel</Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

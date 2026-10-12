@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 set -eu
 # Local demo credential bridge (managed by tools/fix_demo_autofill.mjs)
 demo_credentials_project_dir="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
@@ -105,12 +105,7 @@ for assigned_port in "$runtime_port" "$FRONTEND_PORT"; do
   if command -v lsof >/dev/null 2>&1 && lsof -nP -iTCP:"$assigned_port" -sTCP:LISTEN >/dev/null 2>&1; then echo "Port $assigned_port is occupied." >&2; exit 1; fi
 done
 
-if [ "${NODE_ENV:-production}" != production ]; then
-  (cd "$project_dir/backend" && node db/migrate.js)
-  (cd "$project_dir/backend" && BOOTSTRAP_ACKNOWLEDGEMENT=create-initial-admin node db/create-admin.js)
-else
-  (cd "$project_dir/backend" && node db/migrate.js --check)
-fi
+(cd "$project_dir/backend" && node db/migrate.js --check)
 API_PROXY_TARGET="http://127.0.0.1:$BACKEND_PORT"
 VITE_API_BASE="http://127.0.0.1:$BACKEND_PORT"
 export API_PROXY_TARGET VITE_API_BASE
